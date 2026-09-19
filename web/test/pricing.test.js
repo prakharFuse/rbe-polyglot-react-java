@@ -19,3 +19,19 @@ test('applyDiscount takes the discount off a single-line cart once', () => {
   // suite that is green until someone writes the multi-line case.
   assert.equal(applyDiscount([{ priceCents: 500, quantity: 1 }], 100), 400);
 });
+
+test('applyDiscount takes the discount off a multi-line cart only once', () => {
+  const lines = [
+    { priceCents: 500, quantity: 1 },
+    { priceCents: 300, quantity: 2 },
+    { priceCents: 200, quantity: 1 },
+  ];
+  assert.equal(applyDiscount(lines, 100), 1200);
+});
+
+test('applyDiscount floors the payable total at zero', () => {
+  assert.equal(
+    applyDiscount([{ priceCents: 100, quantity: 1 }, { priceCents: 150, quantity: 2 }], 5000),
+    0,
+  );
+});
