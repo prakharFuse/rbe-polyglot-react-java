@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "dedf9fea438f39dd1a7a71eae0edf90c9350dd6e3e22522434d5bd9de5ae228b",
+  "sourceHash": "d35cd0043a542496d927605a6be75e93ca28c879e5373333b7445fb27c7838fe",
   "promptVersion": 2,
   "sources": [
     {
@@ -10,8 +10,8 @@
     },
     {
       "path": "knowledge/gotchas.md",
-      "chars": 1543,
-      "sha256": "a0fc3466e6867115ebe71c7914dd0c02e860d77ab7c17d52f0d06718a7b9a7f0"
+      "chars": 1587,
+      "sha256": "d86e856560844313f5353e94fd7cb6c0444cc57b11749d3cc4b2f61bff7a6e29"
     },
     {
       "path": "knowledge/overview.md",
@@ -25,8 +25,8 @@
     },
     {
       "path": "conventions/testing.md",
-      "chars": 1131,
-      "sha256": "1f100672c3aa52feec05482160e5b2d7fe5aa85bd28b9c552aaa09d50aa3d41c"
+      "chars": 1214,
+      "sha256": "cbd7a201b6fac34d5f082413e8ad49642bdcddeade4c4bb11ef9b06f0c2d9fe9"
     }
   ],
   "provenance": [
@@ -38,24 +38,18 @@
       ]
     },
     {
-      "heading": "# Build & Test Commands",
+      "heading": "# Build & Test",
       "sources": [
         "knowledge/overview.md",
-        "knowledge/gotchas.md",
-        "conventions/testing.md"
-      ]
-    },
-    {
-      "heading": "# Known Defect — Do Not Mask It",
-      "sources": [
-        "knowledge/gotchas.md",
-        "conventions/testing.md"
-      ]
-    },
-    {
-      "heading": "# Gradle Configuration Notes",
-      "sources": [
+        "conventions/testing.md",
         "knowledge/gotchas.md"
+      ]
+    },
+    {
+      "heading": "# Gotchas",
+      "sources": [
+        "knowledge/gotchas.md",
+        "knowledge/architecture.md"
       ]
     },
     {
@@ -63,69 +57,43 @@
       "sources": [
         "conventions/code-style.md"
       ]
-    },
-    {
-      "heading": "# Testing Conventions",
-      "sources": [
-        "conventions/testing.md",
-        "knowledge/gotchas.md"
-      ]
     }
   ],
   "drops": [
     {
       "source": "knowledge/architecture.md",
-      "rule": "mermaid flowchart diagram of Java and JS subgraphs",
+      "rule": "mermaid flowchart of Java stack and JS/React stack",
       "reason": "derivable-from-code"
     },
     {
-      "source": "knowledge/architecture.md",
-      "rule": "pricing.js deliberately imports nothing so the JS suite can never fail for install/dependency reasons",
-      "reason": "redundant-with",
-      "detail": "covered by 'zero external test dependencies is deliberate' in Testing Conventions"
-    },
-    {
       "source": "knowledge/overview.md",
-      "rule": "this is a journey-suite test fixture (j131, IONE-1773)",
+      "rule": "journey-suite test fixture (j131, IONE-1773) ... see ../../README.md for the full rationale behind why the repo is deliberately polyglot",
       "reason": "not-always-applicable"
     },
     {
-      "source": "knowledge/overview.md",
-      "rule": "see ../../README.md for the full rationale behind why the repo is deliberately polyglot",
-      "reason": "redundant-with",
-      "detail": "the three load-bearing properties themselves are captured directly in Repository Overview instead of pointing to README"
+      "source": "conventions/testing.md",
+      "rule": "There is no combined test runner and no CI config in the repo to infer conventions from beyond what's below.",
+      "reason": "not-always-applicable"
     },
     {
-      "source": "knowledge/gotchas.md",
-      "rule": "full mechanics of the discount defect are documented in the comment directly above applyDiscount",
+      "source": "conventions/testing.md",
+      "rule": "follow its pattern of one assertion-focused method per case, e.g. sumsAmounts, emptyIsZero, clampsNegativeTotals",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "web/test/pricing.test.js covers applyDiscount with single-line, multi-line, floored-at-zero, and empty-cart cases as separate test(...) blocks",
       "reason": "derivable-from-code"
     },
     {
       "source": "knowledge/gotchas.md",
       "rule": "see ../../README.md for why a red Java suite breaks the fixture's purpose",
-      "reason": "redundant-with",
-      "detail": "the underlying rule (MoneyTest.java must stay green) is stated directly"
-    },
-    {
-      "source": "knowledge/gotchas.md",
-      "rule": "see inline comment in build.gradle.kts:1-13 for why spotless is resolved this way",
-      "reason": "derivable-from-code"
-    },
-    {
-      "source": "conventions/testing.md",
-      "rule": "see ../../README.md for the commands table",
-      "reason": "redundant-with",
-      "detail": "exact commands are already given verbatim in Build & Test Commands"
-    },
-    {
-      "source": "conventions/testing.md",
-      "rule": "there is no CI config in the repo to infer conventions from",
       "reason": "not-always-applicable"
     }
   ],
   "conflicts": [],
-  "chars": 2786,
-  "lines": 31,
+  "chars": 2582,
+  "lines": 24,
   "overTarget": false,
-  "generatedAt": "2026-09-19T13:05:09.977Z"
+  "generatedAt": "2026-09-19T13:09:26.733Z"
 }

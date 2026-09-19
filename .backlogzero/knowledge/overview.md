@@ -15,6 +15,13 @@ sources_sha256:
   build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
   package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
   settings.gradle.kts: 139de9a83814a76fb0b2285ea784d612a051ab66fd54333c2d64947da6a55084
+diverges_from:
+  - source: README.md#L21-L25
+    claim: 'Property 2 (load-bearing): "The defect is on the JAVASCRIPT side (web/src/pricing.js)" — the journey fixture depends on pricing.js containing a discount bug that a Java-only gate would miss.'
+    reality: 'web/src/pricing.js''s applyDiscount no longer has the defect: it now subtracts the discount once per order and floors the total at zero, and web/test/pricing.test.js added passing multi-line/floor-at-zero cases confirming the fix.'
+    authority: code
+    detected: '2026-09-19'
+    run: 873141e7-c86e-4ff4-ae24-68b423465ae8
 ---
 
 This is a journey-suite test fixture (`j131`, `IONE-1773`), not a product

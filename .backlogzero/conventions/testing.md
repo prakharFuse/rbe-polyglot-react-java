@@ -3,20 +3,16 @@ name: testing
 description: How each suite is run and what to preserve when touching test files.
 type: convention
 scope: global
-updated: '2026-09-19'
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+updated: 2026-09-19 (IONE-959)
+captured_sha: ebd3b5af40046a9e7d6c1002144e1e2ff84da821
 sources:
-  - README.md
-  - package.json
-  - build.gradle.kts
-  - src/test/java/demo/MoneyTest.java
+  - conventions/testing.md
   - web/test/pricing.test.js
+  - web/src/pricing.js
 sources_sha256:
-  README.md: 5529d73392307476641ea38674f8161667129a2d1ad23f1a154b2d164407c55d
-  build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
-  package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
-  src/test/java/demo/MoneyTest.java: d6a534d376ebb41b8374ceb2450f514573e0543fc0762e0d4a2ac19956a3fbbe
-  web/test/pricing.test.js: 3b34b69345ba8e5c20cc8cff04338b6ce208c4b910eb7bb2cf9fa120a2124cba
+  conventions/testing.md: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  web/src/pricing.js: 2b25f56eb3f79035f14db56d362490b82c7685aaac3194045412fd3a83b5ea2a
+  web/test/pricing.test.js: 9c0d8b7b3a050fb0e30f9cd52fccd5c74bba7affa6e55f7569b2fb4d75fbde5e
 ---
 
 Two independent test toolchains, run separately — see `../../README.md` for
@@ -34,7 +30,8 @@ repo to infer conventions from beyond what's below.
   dependency (jest, mocha, vitest) — the zero-deps property is deliberate
   (see `gotchas.md` and the header comment in `web/src/pricing.js`).
 
-When adding pricing test coverage, add multi-line-cart cases as separate
-`test(...)` blocks rather than extending the existing single-line case —
-see `gotchas.md` for why the existing single-line test can't catch the
-known `applyDiscount` defect.
+`web/test/pricing.test.js` covers `applyDiscount` with single-line,
+multi-line, floored-at-zero, and empty-cart cases as separate `test(...)`
+blocks — follow that pattern (one case per block) rather than folding new
+cart shapes into an existing test. See `gotchas.md` for why the per-order vs
+per-line discount math matters here.

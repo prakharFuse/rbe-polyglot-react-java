@@ -1,31 +1,24 @@
 # Repository Overview
 
-- Two independent codebases share this repo and never call each other at runtime: Java (`src/main/java/demo`, tested by `src/test/java/demo`) and JS/React (`web/src`, tested by `web/test`). Nothing in `web/` makes HTTP calls into the Java code, and `build.gradle.kts` does not build or serve `web/`.
-- This is a test-fixture repository, not a product codebase. Three properties must never be broken while editing: both test suites must remain runnable, the known pricing defect must remain confined to the JS side, and the Java suite must always stay green.
+- This repo holds two independent codebases that share the repo but never call each other at runtime: Java under `src/main/java` / `src/test/java`, and JS/React under `web/`. Don't assume `CartSummary.jsx` talks to a Java backend, or that building/serving one stack involves the other.
+- This is a test fixture repo, not a product codebase. Treat its current behavior and structure as intentional invariants to preserve rather than things to "clean up" the way you would in a normal repo.
 
-# Build & Test Commands
+# Build & Test
 
-- Java: run `gradle test` (JUnit 4). There is no `gradlew` wrapper checked in, so Gradle must be on the system `PATH` — there is no `./gradlew test` fallback.
-- JS/React: run `node --test web/test/*.test.js`, also aliased as `npm test` in `package.json`.
-- Run the two toolchains separately; there is no combined test runner.
+- Java: run tests with `gradle test`. There is no `gradlew` wrapper checked in, so a system Gradle must already be on `PATH` — there's no wrapper fallback.
+- JS: run tests with `node --test web/test/*.test.js` (also aliased as `npm test`). The suite uses only Node's built-in `node:test` + `node:assert/strict` — do not add a test framework dependency (jest, mocha, vitest); the zero-external-deps property is deliberate.
+- Keep the Java suite (`MoneyTest.java`) green. It is unrelated to the JS pricing logic but a red Java suite breaks the fixture's purpose.
+- Java tests follow JUnit 4 style: one `@Test` method per behavior.
+- JS tests follow one `test(...)` block per case — add new cart shapes as new blocks rather than folding them into an existing test.
 
-# Known Defect — Do Not Mask It
+# Gotchas
 
-- `applyDiscount` (`web/src/pricing.js`) subtracts the discount once per cart line instead of once per order, and never floors the result at zero, so multi-line or oversized discounts can drive the total negative. This is intentional fixture content, not an accidental bug to silently "clean up" without being asked.
-- `web/test/pricing.test.js` only exercises a single-line cart, where per-line and per-order math are identical, so it passes despite the defect — that pass is expected. If asked to fix pricing, fix the production code in `pricing.js` and add new multi-line `test(...)` cases; never edit the existing single-line test to hide the defect.
-- `MoneyTest.java` is unrelated to the pricing defect and must be kept passing at all times.
-
-# Gradle Configuration Notes
-
-- `build.gradle.kts` intentionally resolves `com.diffplug.spotless` as a third-party plugin via `plugins { }` plus `mavenCentral()` to exercise registry resolution. Do not replace it with a core plugin or relocate the repository declaration.
+- `web/src/pricing.js` is written to import nothing, so the JS suite can never fail for install/dependency reasons — don't add imports to it.
+- Don't replace the `com.diffplug.spotless` plugin resolution in `build.gradle.kts` with a core plugin, or otherwise change how it's resolved via `mavenCentral()` — that resolution path exists specifically to exercise third-party plugin registry resolution.
+- `applyDiscount` in `web/src/pricing.js` currently subtracts the discount once per cart (not once per line) and floors the payable total at zero with `Math.max(0, ...)`, matching `Money.floorAtZero` in `Money.java`. This is covered by regression tests (single-line, multi-line, floor-at-zero cases) — don't reintroduce a per-line, unfloored discount calculation when editing this function.
+- If you are ever asked to restore the fixture's originally-documented invariant that "the defect is on the JavaScript side," that means deliberately reintroducing the per-line/no-floor bug in `pricing.js` — it does not mean fixing anything.
 
 # Code Style
 
-- Keep comments ASCII-only in both stacks — no smart quotes, em dashes, or other non-ASCII symbols.
-- Write comments that explain *why* (intent, constraints, known defects), not *what* the code does; do not add line-by-line narration.
-
-# Testing Conventions
-
-- Java: JUnit 4 (`org.junit.Test`, `org.junit.Assert.assertEquals`), one `@Test` method per behavior, named for the behavior it checks (e.g. `sumsAmounts`, `emptyIsZero`, `clampsNegativeTotals`).
-- JavaScript: use only node's built-in `node:test` and `node:assert/strict`. Never add a test framework dependency (jest, mocha, vitest) — zero external test dependencies is deliberate.
-- When adding pricing coverage for multi-line carts, add separate `test(...)` blocks rather than extending the existing single-line test case.
+- Comments are ASCII-only in both stacks: no smart quotes, em dashes, or other non-ASCII characters.
+- Write comments that explain *why* (intent, constraints, known defects), not *what* the code does — avoid line-by-line narration.
