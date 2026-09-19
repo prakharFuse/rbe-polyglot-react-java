@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "14c40651c7a5a509c2aa56805eb2f52818a74786d6b448ac1d531a9dbae5e47f",
+  "sourceHash": "b4526c44e3ec5ccb6c6c24a71d87499a3f6479f5461f5264532e2cbc8bdaf1be",
   "promptVersion": 2,
   "sources": [
     {
@@ -10,8 +10,8 @@
     },
     {
       "path": "knowledge/gotchas.md",
-      "chars": 1833,
-      "sha256": "b07678581516b54da95a88669cc382dae3276ec60eac13dfc45d3d70074ca0d0"
+      "chars": 1680,
+      "sha256": "c75b4364be7beb6fb3b60ef2cda1b34a3532c1ab3e2734815fb517a40f08c8c3"
     },
     {
       "path": "knowledge/overview.md",
@@ -20,50 +20,46 @@
     },
     {
       "path": "conventions/testing.md",
-      "chars": 1304,
-      "sha256": "ffb5f46b0d086a17c4498267cff3b581054f000c4fa8d9e553660cf9737c1c8d"
+      "chars": 1229,
+      "sha256": "3cc50bb977c803db71b7a891a7172b02a07f972ea81d07fb4f7280e8e0f1851e"
     }
   ],
   "provenance": [
     {
-      "heading": "# Repository Overview",
+      "heading": "# Repository Shape",
       "sources": [
-        "knowledge/overview.md",
-        "knowledge/architecture.md"
+        "knowledge/architecture.md",
+        "knowledge/overview.md"
       ]
     },
     {
-      "heading": "# Running Tests",
+      "heading": "# Building & Testing",
       "sources": [
         "knowledge/overview.md",
-        "knowledge/gotchas.md"
-      ]
-    },
-    {
-      "heading": "# Known Intentional Defect — do not \"fix\" without being asked",
-      "sources": [
         "knowledge/gotchas.md",
         "conventions/testing.md"
       ]
     },
     {
-      "heading": "# Test Conventions",
+      "heading": "# Code Conventions",
       "sources": [
-        "conventions/testing.md",
-        "knowledge/gotchas.md"
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Gotchas",
+      "sources": [
+        "knowledge/gotchas.md",
+        "knowledge/architecture.md",
+        "conventions/testing.md"
       ]
     }
   ],
   "drops": [
     {
       "source": "knowledge/architecture.md",
-      "rule": "spotless plugin resolved via pluginManagement/mavenCentral() specifically to exercise real dependency resolution",
-      "reason": "derivable-from-code"
-    },
-    {
-      "source": "knowledge/architecture.md",
-      "rule": "Money.java and pricing.js are structurally parallel but never invoked from each other",
-      "reason": "derivable-from-code"
+      "rule": "mermaid flowchart of Java/JS component relationships and mavenCentral resolution edge",
+      "reason": "not-always-applicable"
     },
     {
       "source": "knowledge/architecture.md",
@@ -71,25 +67,42 @@
       "reason": "derivable-from-code"
     },
     {
-      "source": "knowledge/architecture.md",
-      "rule": "mermaid component diagram of the two toolchains",
-      "reason": "not-always-applicable"
+      "source": "knowledge/overview.md",
+      "rule": "file-by-file listing of what's in the tree (Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js) and that no backend/database/build output is committed",
+      "reason": "derivable-from-code"
     },
     {
       "source": "knowledge/overview.md",
-      "rule": "file-by-file list of what's in the tree (Money.java/MoneyTest.java, pricing.js/CartSummary.jsx/pricing.test.js)",
+      "rule": "tests/journeys/scripts/provision-polyglot-fixtures.ts does not exist in this checkout; it lives outside this repo's tree",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "knowledge/gotchas.md",
+      "rule": "web/test/pricing.test.js now covers a multi-line cart and a discount-exceeds-subtotal case",
       "reason": "derivable-from-code"
     },
     {
       "source": "conventions/testing.md",
-      "rule": "package.json:8 defines npm test as node --test web/test/*.test.js",
+      "rule": "detailed cross-reference of applyDiscount test coverage rationale (per-order vs per-line distinguishing cases)",
       "reason": "redundant-with",
-      "detail": "Running Tests section already states the npm test command"
+      "detail": "covered by the Gotchas note on applyDiscount's fix and by the JS test convention of one behavior per test()"
     }
   ],
-  "conflicts": [],
-  "chars": 2939,
-  "lines": 31,
+  "conflicts": [
+    {
+      "sources": [
+        "knowledge/gotchas.md"
+      ],
+      "sides": [
+        "README.md states the intentional defect lives on the JavaScript side (pricing.js)",
+        "code-verified: pricing.js's applyDiscount was rewritten this run to subtract the discount once per order with a zero floor, so no JS-side defect currently exists"
+      ],
+      "chose": "pricing.js currently has no intentional defect; treat README's defect claim as stale until re-checked",
+      "basis": "code-verified divergence in the exploration page overrides the ingested/README claim per merge precedence"
+    }
+  ],
+  "chars": 2316,
+  "lines": 28,
   "overTarget": false,
-  "generatedAt": "2026-09-19T14:39:46.856Z"
+  "generatedAt": "2026-09-19T14:43:46.996Z"
 }

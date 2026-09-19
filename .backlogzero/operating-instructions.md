@@ -1,30 +1,27 @@
-# Repository Overview
+# Repository Shape
 
-- This repo intentionally pairs two independent toolchains — Java/Gradle and JavaScript/Node — with no runtime integration between them. They never call each other over HTTP, share a process, or share a database. `web/src/CartSummary.jsx` imports `web/src/pricing.js` for source parity only; nothing bridges the Java and JS sides.
-- There is no backend server and no database in this repo. Build output (`build/`, `.gradle/`, `node_modules/`) is gitignored and never committed.
-- `README.md` documents the purpose of this fixture and its load-bearing properties — read it before changing test behavior or the intentional Java/JS asymmetry described below.
-- The re-provisioning script referenced in `README.md` (`tests/journeys/scripts/provision-polyglot-fixtures.ts`) lives outside this repo's tree; don't expect to find or edit it here.
+- This repo has two independent toolchains — Java/Gradle and JavaScript/Node — with no runtime integration between them (no shared process, HTTP calls, or database). The only link is that `CartSummary.jsx` imports `pricing.js`.
+- See `README.md` for the stated purpose and load-bearing properties of this fixture; don't duplicate that reasoning here, but do verify current code state before trusting it (see Gotchas below).
 
-# Running Tests
+# Building & Testing
 
-- Java: `gradle test` (JUnit 4.13.2, JDK 17 toolchain).
-- JavaScript: `npm test`, which runs `node --test web/test/*.test.js`. No test-framework dependency is installed for this — `package.json` lists only `react`/`react-dom`.
-- Always run both `gradle test` and `npm test` when validating a change. A single-command gate can report green without ever exercising the JS-side defect described below.
+- Java: run `gradle test` (JUnit 4.13.2, JDK 17 toolchain, per `build.gradle.kts`).
+- JavaScript: run `npm test`, which executes `node --test web/test/*.test.js`. This uses Node's built-in test runner — no test framework needs to be installed, even though `react`/`react-dom` are listed as dependencies.
+- Always run **both** `gradle test` and `npm test` when validating a change. Running only one suite will report green without exercising the other language's code at all.
 
-# Known Intentional Defect — do not "fix" without being asked
+# Code Conventions
 
-- `applyDiscount` in `web/src/pricing.js` subtracts `discountCents` once per line instead of once per order, and applies no zero floor. This is intentional fixture design, not an oversight — leave it as-is unless explicitly asked to fix it.
-- The existing test only covers a single-line cart, where "per line" and "per order" are indistinguishable, so the suite passes despite the defect.
-- If asked to fix it: compute the order subtotal once (reuse `cartTotal`), subtract the discount once, and floor at zero, mirroring `Money.floorAtZero` in `src/main/java/demo/Money.java`. Add a regression test using a multi-line cart (at least 2 lines with different `priceCents`/`quantity`) plus a case where `discountCents` exceeds the subtotal, since the current test can't catch either.
-- The Java suite is expected to stay green on `main`. Do not introduce Java-side defects or otherwise "balance" the fixture by breaking `Money.java` — the JS-broken/Java-clean asymmetry is deliberate.
+**Java (`src/test/java/demo/`)**
+- One test class per production class, same package, suffixed `Test` (e.g. `Money.java` → `MoneyTest.java`).
+- Use `org.junit.Test` and `org.junit.Assert.assertEquals` (JUnit 4 style, not JUnit 5).
 
-# Test Conventions
+**JavaScript (`web/test/`)**
+- Use Node's built-in `node:test` and `node:assert/strict` — do not add an external test framework dependency.
+- Name test files `<module>.test.js`, import the module under test with a relative `../src/...` path.
+- Each `test(...)` block must cover exactly one behavior/scenario — don't batch multiple unrelated assertions into one `test()` block.
 
-## Java (`src/test/java/demo/`)
-- Use JUnit 4 (`org.junit.Test`, `org.junit.Assert.assertEquals`).
-- One test class per production class, same package, suffixed `Test` (e.g. `Money.java` -> `MoneyTest.java`).
+# Gotchas
 
-## JavaScript (`web/test/`)
-- Use Node's built-in `node:test` + `node:assert/strict` — do not add a test-framework dependency.
-- Test files live in `web/test/`, named `<module>.test.js`, importing the module under test via a relative `../src/...` path.
-- Each `test(...)` block covers exactly one behavior/scenario — don't batch multiple unrelated assertions into one `test()` block.
+- The Java suite (`MoneyTest`) is expected to always stay green on `main`. Don't introduce Java-side defects or "balance" the fixture by breaking `Money.java`.
+- `pricing.js`'s `applyDiscount` previously had a bug (it subtracted the discount once per line instead of once per order, with no floor at zero). It has since been fixed to subtract once per order and clamp at zero. Before assuming any JS-vs-Java asymmetry described elsewhere still holds, check the current state of `pricing.js`.
+- `build.gradle.kts` resolves the `spotless` plugin via `pluginManagement`/`mavenCentral()` rather than a core Gradle plugin, deliberately, to exercise real dependency resolution — don't "simplify" this by switching it to a bundled plugin.
