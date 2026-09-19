@@ -14,8 +14,28 @@ test('cartTotal of an empty cart is zero', () => {
 });
 
 test('applyDiscount takes the discount off a single-line cart once', () => {
-  // Passes even with the defect present — with one line, "per line" and
-  // "per order" are the same thing. That is deliberate: the fixture needs a
-  // suite that is green until someone writes the multi-line case.
+  // Kept as a single-line cart because that is the shape where per-line and
+  // per-order discount math coincide, unlike the multi-line cases below.
   assert.equal(applyDiscount([{ priceCents: 500, quantity: 1 }], 100), 400);
+});
+
+test('applyDiscount takes the discount off the order total once for a multi-line cart', () => {
+  const lines = [
+    { priceCents: 500, quantity: 1 },
+    { priceCents: 300, quantity: 2 },
+    { priceCents: 200, quantity: 1 },
+  ];
+  assert.equal(applyDiscount(lines, 100), 1200);
+});
+
+test('applyDiscount floors the payable total at zero when the discount exceeds the subtotal', () => {
+  const lines = [
+    { priceCents: 500, quantity: 1 },
+    { priceCents: 200, quantity: 1 },
+  ];
+  assert.equal(applyDiscount(lines, 900), 0);
+});
+
+test('applyDiscount on an empty cart stays at zero', () => {
+  assert.equal(applyDiscount([], 100), 0);
 });
