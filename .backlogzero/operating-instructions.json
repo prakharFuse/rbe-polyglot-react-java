@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "bd93e35944dd64fd9ec1f20a07fb02c60320bef5f36e3bc66ba876fc95bdea36",
+  "sourceHash": "692c72b51323e006579ba63fa67cd5c320b1df6efdc34bfbdfc0ffb006e576b3",
   "promptVersion": 2,
   "sources": [
     {
@@ -10,13 +10,13 @@
     },
     {
       "path": "knowledge/gotchas.md",
-      "chars": 1680,
-      "sha256": "f364224f836e5311bfec968e89c4ecbaf486d941df30677219e15ba2856d01b8"
+      "chars": 867,
+      "sha256": "a18f1df969c278a051d708826c7640c87803a54d8beff42c863115eb6e0293c8"
     },
     {
       "path": "knowledge/overview.md",
-      "chars": 1647,
-      "sha256": "763b312a153b7cf5cc791473b63aca90ce473ec3a4670da469668c206eaf1074"
+      "chars": 496,
+      "sha256": "33da5b4e1c72b7b53c867b267b10bdd136a7460ed581f93529c227162696f6cb"
     },
     {
       "path": "conventions/code-style.md",
@@ -31,85 +31,48 @@
   ],
   "provenance": [
     {
-      "heading": "# Repository Nature",
+      "heading": "# Architecture",
       "sources": [
-        "knowledge/overview.md",
         "knowledge/architecture.md"
       ]
     },
     {
-      "heading": "# Build & Test Commands",
-      "sources": [
-        "knowledge/overview.md",
-        "knowledge/architecture.md",
-        "conventions/testing.md"
-      ]
-    },
-    {
-      "heading": "# Java Conventions",
-      "sources": [
-        "conventions/code-style.md",
-        "conventions/testing.md"
-      ]
-    },
-    {
-      "heading": "# JavaScript / JSX Conventions",
-      "sources": [
-        "conventions/code-style.md",
-        "conventions/testing.md",
-        "knowledge/architecture.md"
-      ]
-    },
-    {
-      "heading": "# Known Gotchas",
+      "heading": "# Build & Test",
       "sources": [
         "knowledge/gotchas.md",
-        "knowledge/architecture.md"
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Code Style",
+      "sources": [
+        "conventions/code-style.md",
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Gotchas",
+      "sources": [
+        "knowledge/gotchas.md",
+        "knowledge/overview.md"
       ]
     }
   ],
   "drops": [
     {
       "source": "knowledge/architecture.md",
-      "rule": "mermaid diagram of module wiring / file-by-file component graph",
-      "reason": "scoped-not-global"
-    },
-    {
-      "source": "knowledge/overview.md",
-      "rule": "'What's actually in the tree' file-by-file description of src/ and web/ contents",
+      "rule": "mermaid flowchart depicting Money/MoneyTest/pricing.js/CartSummary/PricingTest/Gradle/NodeTest/mavenCentral wiring",
       "reason": "derivable-from-code"
     },
     {
       "source": "knowledge/architecture.md",
-      "rule": "'Gradle plugin resolution is the interesting edge': com.diffplug.spotless resolved via mavenCentral() in repositories{}",
+      "rule": "subgraph labels 'Java side (Gradle)' and 'JS/React side (node --test)' as diagram structure",
       "reason": "derivable-from-code"
-    },
-    {
-      "source": "knowledge/overview.md",
-      "rule": "No node_modules/, no lockfile, no build/ — all gitignored and not checked in; react/react-dom declared in package.json but unused by tests",
-      "reason": "derivable-from-code"
-    },
-    {
-      "source": "conventions/testing.md",
-      "rule": "table of suite/command/framework/location restating Java and JS test commands",
-      "reason": "redundant-with",
-      "detail": "Build & Test Commands section"
-    },
-    {
-      "source": "knowledge/architecture.md",
-      "rule": "'pricing.js imports nothing (not even React) — intentional per its own file comment'",
-      "reason": "redundant-with",
-      "detail": "JavaScript/JSX Conventions rule that pure-logic modules must stay dependency-free"
-    },
-    {
-      "source": "knowledge/overview.md",
-      "rule": "Pointer restating that README documents three load-bearing properties of the fixture, without listing them",
-      "reason": "not-always-applicable"
     }
   ],
   "conflicts": [],
-  "chars": 3162,
-  "lines": 37,
+  "chars": 3128,
+  "lines": 35,
   "overTarget": false,
-  "generatedAt": "2026-09-19T13:53:06.580Z"
+  "generatedAt": "2026-09-19T13:56:33.682Z"
 }
