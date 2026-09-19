@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "sourceHash": "dedf9fea438f39dd1a7a71eae0edf90c9350dd6e3e22522434d5bd9de5ae228b",
+  "promptVersion": 2,
+  "sources": [
+    {
+      "path": "knowledge/architecture.md",
+      "chars": 1082,
+      "sha256": "bdc17c0cf0e9132efeccd76763d6fd680283f1506a09f452c432f78034d4411d"
+    },
+    {
+      "path": "knowledge/gotchas.md",
+      "chars": 1543,
+      "sha256": "a0fc3466e6867115ebe71c7914dd0c02e860d77ab7c17d52f0d06718a7b9a7f0"
+    },
+    {
+      "path": "knowledge/overview.md",
+      "chars": 1013,
+      "sha256": "4206f9386535577970b75e8eeccb446a454de0cebcf921aa6d758d99fcdcfdad"
+    },
+    {
+      "path": "conventions/code-style.md",
+      "chars": 579,
+      "sha256": "c5f5010066499ed4df4db04e06c4545cce724245416d5ca7cfcfdc9e9ddfca9d"
+    },
+    {
+      "path": "conventions/testing.md",
+      "chars": 1131,
+      "sha256": "1f100672c3aa52feec05482160e5b2d7fe5aa85bd28b9c552aaa09d50aa3d41c"
+    }
+  ],
+  "provenance": [
+    {
+      "heading": "# Repository Overview",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md"
+      ]
+    },
+    {
+      "heading": "# Build & Test Commands",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/gotchas.md",
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Known Defect — Do Not Mask It",
+      "sources": [
+        "knowledge/gotchas.md",
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Gradle Configuration Notes",
+      "sources": [
+        "knowledge/gotchas.md"
+      ]
+    },
+    {
+      "heading": "# Code Style",
+      "sources": [
+        "conventions/code-style.md"
+      ]
+    },
+    {
+      "heading": "# Testing Conventions",
+      "sources": [
+        "conventions/testing.md",
+        "knowledge/gotchas.md"
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "mermaid flowchart diagram of Java and JS subgraphs",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "pricing.js deliberately imports nothing so the JS suite can never fail for install/dependency reasons",
+      "reason": "redundant-with",
+      "detail": "covered by 'zero external test dependencies is deliberate' in Testing Conventions"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "this is a journey-suite test fixture (j131, IONE-1773)",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "see ../../README.md for the full rationale behind why the repo is deliberately polyglot",
+      "reason": "redundant-with",
+      "detail": "the three load-bearing properties themselves are captured directly in Repository Overview instead of pointing to README"
+    },
+    {
+      "source": "knowledge/gotchas.md",
+      "rule": "full mechanics of the discount defect are documented in the comment directly above applyDiscount",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/gotchas.md",
+      "rule": "see ../../README.md for why a red Java suite breaks the fixture's purpose",
+      "reason": "redundant-with",
+      "detail": "the underlying rule (MoneyTest.java must stay green) is stated directly"
+    },
+    {
+      "source": "knowledge/gotchas.md",
+      "rule": "see inline comment in build.gradle.kts:1-13 for why spotless is resolved this way",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "see ../../README.md for the commands table",
+      "reason": "redundant-with",
+      "detail": "exact commands are already given verbatim in Build & Test Commands"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "there is no CI config in the repo to infer conventions from",
+      "reason": "not-always-applicable"
+    }
+  ],
+  "conflicts": [],
+  "chars": 2786,
+  "lines": 31,
+  "overTarget": false,
+  "generatedAt": "2026-09-19T13:05:09.977Z"
+}
