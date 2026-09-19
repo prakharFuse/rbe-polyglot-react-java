@@ -1,0 +1,14 @@
+{
+  "name": "rbe-polyglot-react-java",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Journey fixture: a React front end beside a Gradle service. Two test suites.",
+  "scripts": {
+    "test": "node --test web/test/"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
