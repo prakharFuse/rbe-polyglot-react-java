@@ -7,7 +7,7 @@ This repository is POLYGLOT ON PURPOSE. It has two test suites:
 | suite | command | toolchain |
 | --- | --- | --- |
 | Java | `gradle test` | JDK 17 + JUnit |
-| JavaScript | `node --test web/test/` | node, zero deps |
+| JavaScript | `node --test web/test/*.test.js` | node, zero deps |
 
 Three properties are load-bearing. Changing any of them silently stops the
 journey testing anything:
