@@ -14,17 +14,10 @@ export function cartTotal(lines) {
 /**
  * Apply an order-level discount.
  *
- * DEFECT (this is what j131 asks an agent to fix): the discount is subtracted
- * from EVERY line rather than once from the order total, so a 100-cent
- * discount on a three-line cart takes off 300 cents. It also has no floor, so
- * a large discount can drive the total negative.
- *
- * The single-line case in the test below passes, which is why only a test
- * covering a multi-line cart catches it.
+ * The discount is subtracted once from the cart total (not once per line),
+ * and the payable amount is clamped at zero so a discount larger than the
+ * total never produces a negative result.
  */
 export function applyDiscount(lines, discountCents) {
-  return lines.reduce(
-    (sum, line) => sum + (line.priceCents * line.quantity - discountCents),
-    0,
-  );
+  return Math.max(0, cartTotal(lines) - discountCents);
 }

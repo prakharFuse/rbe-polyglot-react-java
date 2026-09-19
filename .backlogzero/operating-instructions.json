@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "sourceHash": "bd93e35944dd64fd9ec1f20a07fb02c60320bef5f36e3bc66ba876fc95bdea36",
+  "promptVersion": 2,
+  "sources": [
+    {
+      "path": "knowledge/architecture.md",
+      "chars": 1559,
+      "sha256": "39c86578a41022a4f605936e428d3b6f4246d3ab5ac56e1001b3638497ffef1f"
+    },
+    {
+      "path": "knowledge/gotchas.md",
+      "chars": 1680,
+      "sha256": "f364224f836e5311bfec968e89c4ecbaf486d941df30677219e15ba2856d01b8"
+    },
+    {
+      "path": "knowledge/overview.md",
+      "chars": 1647,
+      "sha256": "763b312a153b7cf5cc791473b63aca90ce473ec3a4670da469668c206eaf1074"
+    },
+    {
+      "path": "conventions/code-style.md",
+      "chars": 1131,
+      "sha256": "d949362a4b3ab759741759d1a524cb3586e31c16903167d0d273dec129cece52"
+    },
+    {
+      "path": "conventions/testing.md",
+      "chars": 1626,
+      "sha256": "47cc2e55eba048544f997fefa4c8efd81e950b5ccb686811eeb1dfcbddc5c9ca"
+    }
+  ],
+  "provenance": [
+    {
+      "heading": "# Repository Nature",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md"
+      ]
+    },
+    {
+      "heading": "# Build & Test Commands",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md",
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Java Conventions",
+      "sources": [
+        "conventions/code-style.md",
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# JavaScript / JSX Conventions",
+      "sources": [
+        "conventions/code-style.md",
+        "conventions/testing.md",
+        "knowledge/architecture.md"
+      ]
+    },
+    {
+      "heading": "# Known Gotchas",
+      "sources": [
+        "knowledge/gotchas.md",
+        "knowledge/architecture.md"
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "mermaid diagram of module wiring / file-by-file component graph",
+      "reason": "scoped-not-global"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "'What's actually in the tree' file-by-file description of src/ and web/ contents",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "'Gradle plugin resolution is the interesting edge': com.diffplug.spotless resolved via mavenCentral() in repositories{}",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "No node_modules/, no lockfile, no build/ — all gitignored and not checked in; react/react-dom declared in package.json but unused by tests",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "table of suite/command/framework/location restating Java and JS test commands",
+      "reason": "redundant-with",
+      "detail": "Build & Test Commands section"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "'pricing.js imports nothing (not even React) — intentional per its own file comment'",
+      "reason": "redundant-with",
+      "detail": "JavaScript/JSX Conventions rule that pure-logic modules must stay dependency-free"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "Pointer restating that README documents three load-bearing properties of the fixture, without listing them",
+      "reason": "not-always-applicable"
+    }
+  ],
+  "conflicts": [],
+  "chars": 3162,
+  "lines": 37,
+  "overTarget": false,
+  "generatedAt": "2026-09-19T13:53:06.580Z"
+}
