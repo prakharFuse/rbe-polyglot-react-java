@@ -4,17 +4,22 @@ description: What this repo is and how it's laid out — read first for orientat
 type: knowledge
 scope: global
 updated: 2026-09-22 (IONE-959)
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+captured_sha: ed0acdd83de0c442fb098179ac1edf12951eb8a7
 sources:
+  - web/src/pricing.js
+  - web/test/pricing.test.js
   - README.md
-  - package.json
-  - build.gradle.kts
-  - settings.gradle.kts
 sources_sha256:
   README.md: 5529d73392307476641ea38674f8161667129a2d1ad23f1a154b2d164407c55d
-  build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
-  package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
-  settings.gradle.kts: 139de9a83814a76fb0b2285ea784d612a051ab66fd54333c2d64947da6a55084
+  web/src/pricing.js: 3395c08125763827c0fe8bc0c6babe4d61ae9b5e633ca7740a4bb95952ffab52
+  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
+diverges_from:
+  - source: README.md#L21-L25
+    claim: README.md states the fixture's intentional defect is on the JavaScript side, in web/src/pricing.js's applyDiscount (per-item instead of per-order discount), and that this is load-bearing for the j131/IONE-1773 journey test.
+    reality: web/src/pricing.js's applyDiscount now computes the discount once against the order total and floors at zero (per PST-1 commits) — the documented defect no longer exists in the code.
+    authority: code
+    detected: '2026-09-22'
+    run: 511efba6-c8fa-45af-97f1-718848e07820
 ---
 
 This repo is a deliberately polyglot fixture: a Gradle/Java module and a
@@ -35,13 +40,15 @@ layout and pointers only.
 There is no server and no wiring between the Java and JS sides at runtime —
 see [[architecture]] for the verified shape.
 
-## Known issue
+## Known issue (fixed as of PST-1)
 
-`web/src/pricing.js`'s `applyDiscount` has an intentional, documented defect
-(discount subtracted per line instead of once from the order total, no floor
-at zero). It's explained in detail in the file's own header comment and in
-../../README.md — read those before touching the function; don't duplicate
-the explanation elsewhere.
+`web/src/pricing.js`'s `applyDiscount` previously had an intentional,
+documented defect (discount subtracted per line instead of once from the
+order total, no floor at zero). As of the PST-1 change, `applyDiscount` now
+computes `cartTotal(lines) - discountCents` once and floors at zero — the
+defect is gone from the code. README.md still describes this defect as a
+load-bearing, intentional property of the fixture ("The defect is on the
+JAVASCRIPT side"); that claim no longer matches the code (see divergence).
 
 ## Running the suites
 
