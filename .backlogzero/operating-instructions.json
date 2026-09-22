@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "sourceHash": "ae5c6645b400fe39b3680ddc41fe21245530999e54b27ef17303dfc942147025",
+  "promptVersion": 2,
+  "sources": [
+    {
+      "path": "knowledge/architecture.md",
+      "chars": 1132,
+      "sha256": "e9b9161c3a23c39cfd99af8108ba2f57884af5b4da4e8caf51bdc5c9db6d0d4f"
+    },
+    {
+      "path": "knowledge/gotchas.md",
+      "chars": 1373,
+      "sha256": "21b511bd3607591b8acb5588e7aa139dd23c3de53ddaf6f879211d4a1a40807e"
+    },
+    {
+      "path": "knowledge/overview.md",
+      "chars": 1408,
+      "sha256": "29599708b61ffcbf1b2925cdaa57d5788e7132c1a4f439e6c12a9ea70f3c2305"
+    },
+    {
+      "path": "conventions/testing.md",
+      "chars": 1138,
+      "sha256": "a4a77d78143febdd50cf6cdb940b61a6ce4cf8d1e2302cc60d14ac949eb088b6"
+    }
+  ],
+  "provenance": [
+    {
+      "heading": "# Repository Overview",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md",
+        "knowledge/gotchas.md"
+      ]
+    },
+    {
+      "heading": "# Commands",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/gotchas.md"
+      ]
+    },
+    {
+      "heading": "# Test Conventions",
+      "sources": [
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Gotchas & Invariants",
+      "sources": [
+        "knowledge/gotchas.md",
+        "knowledge/architecture.md",
+        "knowledge/overview.md"
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "mermaid flowchart of file relations between MoneyTest/Money, PricingTest/Pricing/CartSummary, build.gradle.kts/Spotless, package.json",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "Modules list: src/main/java/demo/Money.java, web/src/pricing.js, web/src/CartSummary.jsx file-by-file descriptions",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "'pricing.js deliberately has zero imports ... so the JS subgraph above has no edge into node_modules/React at test time'",
+      "reason": "redundant-with",
+      "detail": "kept as 'web/src/pricing.js must keep importing nothing' in Gotchas & Invariants"
+    },
+    {
+      "source": "knowledge/gotchas.md",
+      "rule": "Detailed changelog of the former defect ('applyDiscount used to subtract discountCents from every line ... now does Math.max(0, cartTotal(lines) - discountCents)')",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "knowledge/gotchas.md",
+      "rule": "Specific journey/ticket citation ('j131, IONE-1773')",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "'For applyDiscount specifically, a single-line-cart assertion is not sufficient coverage ... add a multi-line case with an exact expected total'",
+      "reason": "redundant-with",
+      "detail": "generalized as 'pair a normal-path case with an edge/invalid case' in Test Conventions; the specific applyDiscount gap is already closed per gotchas.md"
+    }
+  ],
+  "conflicts": [
+    {
+      "sources": [
+        "knowledge/gotchas.md"
+      ],
+      "sides": [
+        "README.md's fixture design treats 'the defect is on the JAVASCRIPT side' as a load-bearing invariant for the j131 journey test, implying applyDiscount should remain broken",
+        "Current code (as of PST-1) already fixes applyDiscount to apply the discount once at the order level with a floor at zero, and tests now cover this"
+      ],
+      "chose": "Keep the current fixed code as-is, but flag pricing-defect/suite-shape changes as needing a README.md + provisioning-script check rather than silently resolving the tension either way",
+      "basis": "Code-verified current state takes precedence per resolution rules, but since the fixture's intended defect location is an open tension the source itself flags as needing an owner decision, the document surfaces it as a caution rather than asserting either fixed or broken is 'correct'"
+    }
+  ],
+  "chars": 2368,
+  "lines": 20,
+  "overTarget": false,
+  "generatedAt": "2026-09-22T17:19:08.341Z"
+}
