@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "sourceHash": "1d3227f16feb1d49a8a2f531b2fbe4cda162b13904b313528b5827472a1f5176",
+  "promptVersion": 2,
+  "sources": [
+    {
+      "path": "knowledge/architecture.md",
+      "chars": 1061,
+      "sha256": "81e25878857502bbcaacdb9b4ebcd2f001ab12121b1758a43e4a1d433a70757b"
+    },
+    {
+      "path": "knowledge/overview.md",
+      "chars": 1416,
+      "sha256": "96fe8a2ded44bf7f07b2630bbecb286cb4300ea7452b657dee433ad1696e0d80"
+    },
+    {
+      "path": "conventions/testing.md",
+      "chars": 1299,
+      "sha256": "8b5d789e18f0ee5fcab28c6cf73263fbda0800576a1ecfaf37bc8b808b00ce51"
+    }
+  ],
+  "provenance": [
+    {
+      "heading": "# Repository Overview",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md"
+      ]
+    },
+    {
+      "heading": "# Known Gotcha",
+      "sources": [
+        "knowledge/overview.md"
+      ]
+    },
+    {
+      "heading": "# Testing",
+      "sources": [
+        "conventions/testing.md",
+        "knowledge/overview.md"
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "mermaid flowchart of Java/JS module subgraphs",
+      "reason": "scoped-not-global"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "## Layout — bullet list of every file (Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js) and its purpose",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "CartSummary.jsx renders pricing.js output but is not itself exercised by any test",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "pointer 'see [[architecture]] for the verified shape'",
+      "reason": "redundant-with",
+      "detail": "folded into the 'not wired together at runtime' rule in Repository Overview"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "no matches for fetch/http/server bootstrap outside package-lock.json (verified by search)",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "spotless plugin is resolved via mavenCentral() in repositories {}",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "testImplementation(\"junit:junit:4.13.2\") exact dependency coordinate citation",
+      "reason": "derivable-from-code"
+    }
+  ],
+  "conflicts": [],
+  "chars": 2046,
+  "lines": 19,
+  "overTarget": false,
+  "generatedAt": "2026-09-22T17:29:15.811Z"
+}
