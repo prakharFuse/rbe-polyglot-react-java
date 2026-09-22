@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "sourceHash": "76152d939405b54f5e6748385f14d0e92833a2d20727e7afdcd1c0b4b6cb7d19",
+  "promptVersion": 2,
+  "sources": [
+    {
+      "path": "knowledge/architecture.md",
+      "chars": 1061,
+      "sha256": "81e25878857502bbcaacdb9b4ebcd2f001ab12121b1758a43e4a1d433a70757b"
+    },
+    {
+      "path": "knowledge/overview.md",
+      "chars": 1619,
+      "sha256": "bb5c75ec60bb35a27a8f72b2b593989a77e8449d08427d8f737b9eaba8e91ffb"
+    },
+    {
+      "path": "conventions/testing.md",
+      "chars": 1299,
+      "sha256": "8b5d789e18f0ee5fcab28c6cf73263fbda0800576a1ecfaf37bc8b808b00ce51"
+    }
+  ],
+  "provenance": [
+    {
+      "heading": "# Repository Overview",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md"
+      ]
+    },
+    {
+      "heading": "# Testing",
+      "sources": [
+        "conventions/testing.md",
+        "knowledge/overview.md"
+      ]
+    },
+    {
+      "heading": "# Gotchas",
+      "sources": [
+        "knowledge/overview.md"
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "mermaid flowchart of Java/JS subgraphs",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "CartSummary.jsx renders pricing.js output but is not itself exercised by any test",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "Layout bullet list (file paths for Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js)",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "See README.md for full rationale (j131/IONE-1773 journey-test fixture)",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "Test files live under web/test/, importing the module under test directly (e.g. ../src/pricing.js)",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "Spotless plugin resolved via mavenCentral() in repositories {}",
+      "reason": "derivable-from-code"
+    }
+  ],
+  "conflicts": [
+    {
+      "sources": [
+        "knowledge/overview.md"
+      ],
+      "sides": [
+        "README.md: the discount defect (subtracted per line instead of once from order total) is a load-bearing, intentional property of the fixture",
+        "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed"
+      ],
+      "chose": "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed",
+      "basis": "code-verified fact overrides a stale claim in README per the source's own explicit divergence note"
+    }
+  ],
+  "chars": 1902,
+  "lines": 19,
+  "overTarget": false,
+  "generatedAt": "2026-09-22T17:34:33.352Z"
+}
