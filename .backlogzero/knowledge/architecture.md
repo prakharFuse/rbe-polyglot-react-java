@@ -4,7 +4,7 @@ description: Real module shape of the repo — two independent modules, no runti
 type: knowledge
 scope: global
 updated: 2026-09-22 (IONE-959)
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+captured_sha: c759745d6977645e5801ef47a2b94164547c4664
 sources:
   - src/main/java/demo/Money.java
   - src/test/java/demo/MoneyTest.java
@@ -16,11 +16,11 @@ sources:
 sources_sha256:
   build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
   package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
-  src/main/java/demo/Money.java: 577563fbf0454e49225c00d9161cd34e39557173c3093286c7c6980bf815ec48
-  src/test/java/demo/MoneyTest.java: d6a534d376ebb41b8374ceb2450f514573e0543fc0762e0d4a2ac19956a3fbbe
+  src/main/java/demo/Money.java: 092a2d479e96a210e2ca92d79a04da214d6c9f5cb8cebed995ca71c9f40b8a8c
+  src/test/java/demo/MoneyTest.java: 96f4b7df832aec4fd961249c326e5458275b582434a0cf23bcce1fbf4f98cb2c
   web/src/CartSummary.jsx: be7506d7244ab667d201b6aa63a8b829bade1620ea09c182ea42f7ed0434ae03
-  web/src/pricing.js: eb0dfe8b94a0ba36bc49d2bebcb8de7ada2416b0a2fc9bacb804f5e249f1b139
-  web/test/pricing.test.js: 3b34b69345ba8e5c20cc8cff04338b6ce208c4b910eb7bb2cf9fa120a2124cba
+  web/src/pricing.js: 3395c08125763827c0fe8bc0c6babe4d61ae9b5e633ca7740a4bb95952ffab52
+  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
 ---
 
 ```mermaid
