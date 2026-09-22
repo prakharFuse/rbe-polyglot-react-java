@@ -5,13 +5,18 @@ public final class Money {
     private Money() {
     }
 
-    /** Sum of every amount, in cents. */
+    /**
+     * Sum of every amount, in cents. Amounts are accumulated in a wider type
+     * so intermediate values cannot wrap.
+     *
+     * @throws ArithmeticException if the total cannot be represented as an int
+     */
     public static int sum(int[] amounts) {
-        int total = 0;
+        long total = 0;
         for (int amount : amounts) {
             total += amount;
         }
-        return total;
+        return Math.toIntExact(total);
     }
 
     /** Never let a computed total fall below zero. */
