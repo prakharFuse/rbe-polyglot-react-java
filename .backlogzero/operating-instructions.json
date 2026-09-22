@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "sourceHash": "4643a4cb82efeaf075b832a40158835aef3b60cc6f2919ba2e8f501947fd2afa",
+  "promptVersion": 2,
+  "sources": [
+    {
+      "path": "knowledge/architecture.md",
+      "chars": 1132,
+      "sha256": "e9b9161c3a23c39cfd99af8108ba2f57884af5b4da4e8caf51bdc5c9db6d0d4f"
+    },
+    {
+      "path": "knowledge/gotchas.md",
+      "chars": 1278,
+      "sha256": "2239e5188e5173a2569c22089825abb91218bed1f2fa932d879952bbec421027"
+    },
+    {
+      "path": "knowledge/overview.md",
+      "chars": 1408,
+      "sha256": "29599708b61ffcbf1b2925cdaa57d5788e7132c1a4f439e6c12a9ea70f3c2305"
+    },
+    {
+      "path": "conventions/testing.md",
+      "chars": 1138,
+      "sha256": "a4a77d78143febdd50cf6cdb940b61a6ce4cf8d1e2302cc60d14ac949eb088b6"
+    }
+  ],
+  "provenance": [
+    {
+      "heading": "# Repo Purpose",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md"
+      ]
+    },
+    {
+      "heading": "# Build & Test Commands",
+      "sources": [
+        "knowledge/overview.md",
+        "knowledge/architecture.md",
+        "knowledge/gotchas.md"
+      ]
+    },
+    {
+      "heading": "# Fixture Invariants (do not change incidentally)",
+      "sources": [
+        "knowledge/gotchas.md"
+      ]
+    },
+    {
+      "heading": "# Known Defect — Left In Place",
+      "sources": [
+        "knowledge/gotchas.md",
+        "conventions/testing.md"
+      ]
+    },
+    {
+      "heading": "# Testing Conventions",
+      "sources": [
+        "conventions/testing.md",
+        "knowledge/gotchas.md"
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "mermaid flowchart of MoneyTest/Money/Gradle/Spotless and PricingTest/pricing/CartSummary relationships",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "CartSummary.jsx imports pricing.js but is not exercised by any test",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "module list: Money.java, pricing.js, CartSummary.jsx file-by-file descriptions",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "\"README.md spells out why each of these choices is load-bearing — don't relax them without re-reading it\"",
+      "reason": "redundant-with",
+      "detail": "covered by Repo Purpose section's reference to README.md rationale"
+    }
+  ],
+  "conflicts": [],
+  "chars": 3133,
+  "lines": 30,
+  "overTarget": false,
+  "generatedAt": "2026-09-22T17:16:40.762Z"
+}
