@@ -3,8 +3,8 @@ name: architecture
 description: Real module shape of the repo — two independent modules, no runtime link between them
 type: knowledge
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+updated: 2026-09-24 (IONE-959)
+captured_sha: 1eeaec8a7515fe5ce91125ed87810aa749b372fc
 sources:
   - src/main/java/demo/Money.java
   - src/test/java/demo/MoneyTest.java
@@ -19,8 +19,8 @@ sources_sha256:
   src/main/java/demo/Money.java: 577563fbf0454e49225c00d9161cd34e39557173c3093286c7c6980bf815ec48
   src/test/java/demo/MoneyTest.java: d6a534d376ebb41b8374ceb2450f514573e0543fc0762e0d4a2ac19956a3fbbe
   web/src/CartSummary.jsx: be7506d7244ab667d201b6aa63a8b829bade1620ea09c182ea42f7ed0434ae03
-  web/src/pricing.js: eb0dfe8b94a0ba36bc49d2bebcb8de7ada2416b0a2fc9bacb804f5e249f1b139
-  web/test/pricing.test.js: 3b34b69345ba8e5c20cc8cff04338b6ce208c4b910eb7bb2cf9fa120a2124cba
+  web/src/pricing.js: 3395c08125763827c0fe8bc0c6babe4d61ae9b5e633ca7740a4bb95952ffab52
+  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
 ---
 
 ```mermaid

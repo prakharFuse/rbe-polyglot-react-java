@@ -3,8 +3,8 @@ name: testing
 description: How to run and write tests in this repo — two separate toolchains, both required
 type: convention
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+updated: 2026-09-24 (IONE-959)
+captured_sha: 1eeaec8a7515fe5ce91125ed87810aa749b372fc
 sources:
   - package.json
   - build.gradle.kts
@@ -12,11 +12,11 @@ sources:
   - web/test/pricing.test.js
   - README.md
 sources_sha256:
-  README.md: 5529d73392307476641ea38674f8161667129a2d1ad23f1a154b2d164407c55d
+  README.md: 0bcbd9ee61ef2b1e862e2e64daf19bb9543bb8c2ffeb100f3c0fff55cd8f9b9d
   build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
   package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
   src/test/java/demo/MoneyTest.java: d6a534d376ebb41b8374ceb2450f514573e0543fc0762e0d4a2ac19956a3fbbe
-  web/test/pricing.test.js: 3b34b69345ba8e5c20cc8cff04338b6ce208c4b910eb7bb2cf9fa120a2124cba
+  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
 ---
 
 Two independent suites exist and a change is only validated when **both**
