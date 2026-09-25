@@ -3,16 +3,18 @@ name: overview
 description: What this repo is and how it's laid out — read first for orientation
 type: knowledge
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: ed0acdd83de0c442fb098179ac1edf12951eb8a7
+updated: 2026-09-25 (IONE-959)
+captured_sha: 4f06e533e96f3f54cb79c1d224eb2ca3643e4d98
 sources:
+  - src/main/java/demo/Money.java
   - web/src/pricing.js
   - web/test/pricing.test.js
   - README.md
 sources_sha256:
-  README.md: 5529d73392307476641ea38674f8161667129a2d1ad23f1a154b2d164407c55d
-  web/src/pricing.js: 3395c08125763827c0fe8bc0c6babe4d61ae9b5e633ca7740a4bb95952ffab52
-  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
+  README.md: f178e7c7c2be47d428b2f810cd5ec92f5acd9194e47eecd448af2c9298f4606a
+  src/main/java/demo/Money.java: 9ea4cf0890d38a880cd6fec4db97db3da97d319276ba439709af09b3b7bb7210
+  web/src/pricing.js: 8130829711c44a34709f954c198342433b8345513dd07e10f57699f5d585efdd
+  web/test/pricing.test.js: 9986d6f5be1d0d8ccc1bf638417c76c1c0bd299aa2c9ee9bdf1ba8cf22b79987
 diverges_from:
   - source: README.md#L21-L25
     claim: README.md states the fixture's intentional defect is on the JavaScript side, in web/src/pricing.js's applyDiscount (per-item instead of per-order discount), and that this is load-bearing for the j131/IONE-1773 journey test.
@@ -31,9 +33,9 @@ layout and pointers only.
 
 ## Layout
 
-- `src/main/java/demo/Money.java` — cent-arithmetic helpers (`sum`, `floorAtZero`), plain Java, no dependencies.
+- `src/main/java/demo/Money.java` — cent-arithmetic helpers (`sum`, `floorAtZero`, `roundToCents`), plain Java, no dependencies.
 - `src/test/java/demo/MoneyTest.java` — JUnit 4 tests for `Money`.
-- `web/src/pricing.js` — pure pricing helpers (`cartTotal`, `applyDiscount`), zero imports.
+- `web/src/pricing.js` — pure pricing helpers (`cartTotal`, `applyDiscount`, `roundToCents`), zero imports.
 - `web/src/CartSummary.jsx` — the only React component; renders `pricing.js` output, not itself under test.
 - `web/test/pricing.test.js` — `node:test` suite for `pricing.js`.
 

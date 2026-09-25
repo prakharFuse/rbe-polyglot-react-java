@@ -3,36 +3,38 @@ name: architecture
 description: Real module shape of the repo — two independent modules, no runtime link between them
 type: knowledge
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+updated: 2026-09-25 (IONE-959)
+captured_sha: 4f06e533e96f3f54cb79c1d224eb2ca3643e4d98
 sources:
   - src/main/java/demo/Money.java
   - src/test/java/demo/MoneyTest.java
   - web/src/pricing.js
   - web/src/CartSummary.jsx
   - web/test/pricing.test.js
+  - README.md
   - package.json
   - build.gradle.kts
 sources_sha256:
+  README.md: f178e7c7c2be47d428b2f810cd5ec92f5acd9194e47eecd448af2c9298f4606a
   build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
   package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
-  src/main/java/demo/Money.java: 577563fbf0454e49225c00d9161cd34e39557173c3093286c7c6980bf815ec48
-  src/test/java/demo/MoneyTest.java: d6a534d376ebb41b8374ceb2450f514573e0543fc0762e0d4a2ac19956a3fbbe
-  web/src/CartSummary.jsx: be7506d7244ab667d201b6aa63a8b829bade1620ea09c182ea42f7ed0434ae03
-  web/src/pricing.js: eb0dfe8b94a0ba36bc49d2bebcb8de7ada2416b0a2fc9bacb804f5e249f1b139
-  web/test/pricing.test.js: 3b34b69345ba8e5c20cc8cff04338b6ce208c4b910eb7bb2cf9fa120a2124cba
+  src/main/java/demo/Money.java: 9ea4cf0890d38a880cd6fec4db97db3da97d319276ba439709af09b3b7bb7210
+  src/test/java/demo/MoneyTest.java: 984e72f9fbc3a82528dbef22710d874d0884a49cfc3a9e46f0250f494d3ccd74
+  web/src/CartSummary.jsx: 2336e972f57fdb7dddc76592d45902b4594bb5cac96b0af6d8885e0f45a4113b
+  web/src/pricing.js: 8130829711c44a34709f954c198342433b8345513dd07e10f57699f5d585efdd
+  web/test/pricing.test.js: 9986d6f5be1d0d8ccc1bf638417c76c1c0bd299aa2c9ee9bdf1ba8cf22b79987
 ---
 
 ```mermaid
 flowchart TB
     subgraph Java["Java module (gradle test)"]
-        Money["Money.java\nsum / floorAtZero"]
+        Money["Money.java\nsum / floorAtZero / roundToCents"]
         MoneyTest["MoneyTest.java"]
         MoneyTest -->|asserts| Money
     end
 
     subgraph JS["JS module (node --test)"]
-        Pricing["pricing.js\ncartTotal / applyDiscount"]
+        Pricing["pricing.js\ncartTotal / applyDiscount / roundToCents"]
         PricingTest["pricing.test.js"]
         CartSummary["CartSummary.jsx"]
         PricingTest -->|asserts| Pricing
@@ -48,3 +50,10 @@ implementations of similar cent-arithmetic concepts; they are not the same
 service split across languages, and a change to one has no runtime effect on
 the other. `CartSummary.jsx` renders `pricing.js`'s output but is not itself
 exercised by any test — the pure functions are what's under test.
+
+Both modules now also carry a `roundToCents` helper (`Money.roundToCents()`
+in Java, `roundToCents(amount)` in `pricing.js`) implementing the same
+half-up rounding rule, per README.md's "Rounding" section. These are two
+independently-written, mirrored implementations kept in sync by convention
+(each doc-comments the other) — not shared code, and still no runtime link
+between the modules.
