@@ -21,3 +21,30 @@ export function cartTotal(lines) {
 export function applyDiscount(lines, discountCents) {
   return Math.max(0, cartTotal(lines) - discountCents);
 }
+
+/**
+ * Round a dollar amount to two decimal places, half-up (half away from zero).
+ *
+ * Shifts the absolute value's decimal point via exponential notation rather
+ * than a plain `Math.round(amount * 100) / 100`, since multiplying first can
+ * push values like 1.005 to the wrong side of .5 due to binary
+ * floating-point error. Mirrors `Money.roundToCents()` in
+ * src/main/java/demo/Money.java.
+ */
+export function roundToCents(amount) {
+  if (!Number.isFinite(amount)) {
+    throw new TypeError('roundToCents requires a finite number');
+  }
+
+  const sign = amount < 0 ? -1 : 1;
+  const shiftedUp = shiftDecimal(Math.abs(amount), 2);
+  const rounded = shiftDecimal(Math.round(shiftedUp), -2);
+  const result = sign * rounded;
+
+  return Object.is(result, -0) ? 0 : result;
+}
+
+function shiftDecimal(value, exponent) {
+  const [digits, exp] = value.toString().split('e');
+  return Number(`${digits}e${exp ? Number(exp) + exponent : exponent}`);
+}
