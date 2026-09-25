@@ -28,3 +28,10 @@ journey testing anything:
    build.
 
 Re-provision: `tests/journeys/scripts/provision-polyglot-fixtures.ts`.
+
+## Rounding
+
+Both pricing paths round money to two decimals using the same half-up rule:
+`Money.roundToCents()` on the Java side and `pricing.js`'s `roundToCents(amount)`
+on the web side. Shared examples: `1.005 -> 1.01`, `1.004 -> 1.00`,
+`-0.125 -> -0.13`.
