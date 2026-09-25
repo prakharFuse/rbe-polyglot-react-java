@@ -21,3 +21,23 @@ export function cartTotal(lines) {
 export function applyDiscount(lines, discountCents) {
   return Math.max(0, cartTotal(lines) - discountCents);
 }
+
+/**
+ * Shift the decimal point of `value` by `places` digits without multiplying,
+ * so the shift can't introduce the rounding error a `* 10**places` would.
+ */
+function shiftDecimalPoint(value, places) {
+  const [digits, exponent] = value.toExponential().split('e');
+  return Number(`${digits}e${Number(exponent) + places}`);
+}
+
+/** Round a dollar amount to two decimal places, half-up (ties away from zero). */
+export function roundToCents(amount) {
+  if (typeof amount !== 'number' || !Number.isFinite(amount)) {
+    throw new TypeError('roundToCents expects a finite number');
+  }
+
+  const shifted = shiftDecimalPoint(amount, 2);
+  const rounded = shifted < 0 ? -Math.round(-shifted) : Math.round(shifted);
+  return shiftDecimalPoint(rounded, -2);
+}
