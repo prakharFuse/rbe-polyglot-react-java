@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { applyDiscount, cartTotal } from '../src/pricing.js';
+import { applyDiscount, cartTotal, roundToCents } from '../src/pricing.js';
 
 // The JAVASCRIPT suite. This is the one a single-slot gate would never have
 // run: the repo's obvious command is the Gradle one.
@@ -30,4 +30,24 @@ test('applyDiscount takes the discount off the order total once for a multi-line
 
 test('applyDiscount floors the result at zero when the discount exceeds the subtotal', () => {
   assert.equal(applyDiscount([{ priceCents: 500, quantity: 1 }], 900), 0);
+});
+
+test('roundToCents rounds up at exactly half a cent', () => {
+  assert.equal(roundToCents(1.005), 1.01);
+});
+
+test('roundToCents rounds down below half a cent', () => {
+  assert.equal(roundToCents(1.004), 1);
+});
+
+test('roundToCents rounds a negative half away from zero', () => {
+  assert.equal(roundToCents(-0.125), -0.13);
+});
+
+test('roundToCents normalizes a tiny negative amount to positive zero', () => {
+  assert.equal(roundToCents(-0.001), 0);
+});
+
+test('roundToCents throws a TypeError for NaN', () => {
+  assert.throws(() => roundToCents(Number.NaN), TypeError);
 });
