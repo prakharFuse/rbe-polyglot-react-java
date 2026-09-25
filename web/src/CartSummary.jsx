@@ -1,5 +1,5 @@
 import React from 'react';
-import { applyDiscount, cartTotal } from './pricing.js';
+import { applyDiscount, cartTotal, roundToCents } from './pricing.js';
 
 /**
  * The cart summary. Rendering is not under test — the pure helpers are — so
@@ -7,7 +7,7 @@ import { applyDiscount, cartTotal } from './pricing.js';
  * rather than to be exercised by the suite.
  */
 export function CartSummary({ lines, discountCents }) {
-  const total = cartTotal(lines);
+  const total = roundToCents(cartTotal(lines));
   const payable = applyDiscount(lines, discountCents);
   return (
     <section className="cart-summary">
