@@ -1,66 +1,71 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "76152d939405b54f5e6748385f14d0e92833a2d20727e7afdcd1c0b4b6cb7d19",
+  "sourceHash": "3f6b09a196f0410f25ff24a3c1a58813c057aefc9b1aeac19cccd14e9ef17e04",
   "promptVersion": 2,
   "sources": [
     {
       "path": "knowledge/architecture.md",
-      "chars": 1061,
-      "sha256": "81e25878857502bbcaacdb9b4ebcd2f001ab12121b1758a43e4a1d433a70757b"
+      "chars": 1785,
+      "sha256": "57a5e4c957153494f967cfa030378a9c21177cba148ec00d70c3c657771c5586"
     },
     {
       "path": "knowledge/overview.md",
-      "chars": 1619,
-      "sha256": "bb5c75ec60bb35a27a8f72b2b593989a77e8449d08427d8f737b9eaba8e91ffb"
+      "chars": 520,
+      "sha256": "ae7c17951a57b69ae9e395ad0628f5a25390f233572aa84aefe9cdf324ed54f4"
     },
     {
       "path": "conventions/testing.md",
-      "chars": 1299,
-      "sha256": "8b5d789e18f0ee5fcab28c6cf73263fbda0800576a1ecfaf37bc8b808b00ce51"
+      "chars": 1559,
+      "sha256": "65b63c875ea0f9c7a0430ffb67fa2f048debe0d4324fb78cadfad7960e5ace48"
     }
   ],
   "provenance": [
     {
-      "heading": "# Repository Overview",
+      "heading": "# Architecture",
       "sources": [
-        "knowledge/overview.md",
+        "knowledge/architecture.md",
+        "knowledge/overview.md"
+      ]
+    },
+    {
+      "heading": "# Java conventions",
+      "sources": [
         "knowledge/architecture.md"
+      ]
+    },
+    {
+      "heading": "# JS conventions",
+      "sources": [
+        "conventions/testing.md"
       ]
     },
     {
       "heading": "# Testing",
       "sources": [
-        "conventions/testing.md",
-        "knowledge/overview.md"
-      ]
-    },
-    {
-      "heading": "# Gotchas",
-      "sources": [
-        "knowledge/overview.md"
+        "conventions/testing.md"
       ]
     }
   ],
   "drops": [
     {
-      "source": "knowledge/architecture.md",
-      "rule": "mermaid flowchart of Java/JS subgraphs",
-      "reason": "derivable-from-code"
-    },
-    {
-      "source": "knowledge/architecture.md",
-      "rule": "CartSummary.jsx renders pricing.js output but is not itself exercised by any test",
-      "reason": "derivable-from-code"
-    },
-    {
       "source": "knowledge/overview.md",
-      "rule": "Layout bullet list (file paths for Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js)",
+      "rule": "Layout list (src/main/java/demo/Money.java, web/src/pricing.js file descriptions)",
       "reason": "derivable-from-code"
     },
     {
-      "source": "knowledge/overview.md",
-      "rule": "See README.md for full rationale (j131/IONE-1773 journey-test fixture)",
-      "reason": "not-always-applicable"
+      "source": "knowledge/architecture.md",
+      "rule": "CartSummary.jsx renders pricing.js's output but is not itself exercised by any test",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "No file in the repo opens a socket, calls fetch, or defines a server/main entrypoint (verified by search for fetch/http outside package-lock.json)",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "Test files live under src/test/java/demo/, mirroring src/main/java/demo/",
+      "reason": "derivable-from-code"
     },
     {
       "source": "conventions/testing.md",
@@ -69,25 +74,13 @@
     },
     {
       "source": "conventions/testing.md",
-      "rule": "Spotless plugin resolved via mavenCentral() in repositories {}",
+      "rule": "build.gradle.kts applies the com.diffplug.spotless plugin (removeUnusedImports() for Java), resolved via mavenCentral() in repositories {}",
       "reason": "derivable-from-code"
     }
   ],
-  "conflicts": [
-    {
-      "sources": [
-        "knowledge/overview.md"
-      ],
-      "sides": [
-        "README.md: the discount defect (subtracted per line instead of once from order total) is a load-bearing, intentional property of the fixture",
-        "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed"
-      ],
-      "chose": "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed",
-      "basis": "code-verified fact overrides a stale claim in README per the source's own explicit divergence note"
-    }
-  ],
-  "chars": 1902,
-  "lines": 19,
+  "conflicts": [],
+  "chars": 1580,
+  "lines": 21,
   "overTarget": false,
-  "generatedAt": "2026-09-22T17:34:33.352Z"
+  "generatedAt": "2026-09-25T10:22:54.275Z"
 }
