@@ -27,4 +27,14 @@ journey testing anything:
    configured check RUNS; a red main cannot tell a working gate from a broken
    build.
 
+## Rounding
+
+Both paths round half-up to two decimals: `demo.Money#roundToCents` on the
+Java side, `roundToCents` in `pricing.js` on the JS side. Ties round away
+from zero (e.g. `-0.005` rounds to `-0.01`, not `0.00`). On the Java side,
+amounts must be constructed from a decimal string (`Money.of(String)`) or via
+`BigDecimal.valueOf` (`Money.of(double)`) — never `new BigDecimal(double)`,
+which captures the raw binary value of the double and breaks parity with the
+JS implementation.
+
 Re-provision: `tests/journeys/scripts/provision-polyglot-fixtures.ts`.
