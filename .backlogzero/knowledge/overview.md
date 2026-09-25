@@ -3,16 +3,16 @@ name: overview
 description: What this repo is and how it's laid out — read first for orientation
 type: knowledge
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: ed0acdd83de0c442fb098179ac1edf12951eb8a7
+updated: 2026-09-25 (IONE-959)
+captured_sha: efbe6193184f3bdbe01c1c72f0dfa26fbe356d96
 sources:
+  - src/main/java/demo/Money.java
   - web/src/pricing.js
-  - web/test/pricing.test.js
-  - README.md
+  - web/src/CartSummary.jsx
 sources_sha256:
-  README.md: 5529d73392307476641ea38674f8161667129a2d1ad23f1a154b2d164407c55d
-  web/src/pricing.js: 3395c08125763827c0fe8bc0c6babe4d61ae9b5e633ca7740a4bb95952ffab52
-  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
+  src/main/java/demo/Money.java: 36ac98847d90dfa4cdfb6f0141750ce58bbf8bafe4c53f58f6e439a7b3ebd0d5
+  web/src/CartSummary.jsx: 2336e972f57fdb7dddc76592d45902b4594bb5cac96b0af6d8885e0f45a4113b
+  web/src/pricing.js: 6f1b9ecae3ec551c7fd7e75cd941a89cf63b09c0ac534ba67662db8282efb169
 diverges_from:
   - source: README.md#L21-L25
     claim: README.md states the fixture's intentional defect is on the JavaScript side, in web/src/pricing.js's applyDiscount (per-item instead of per-order discount), and that this is load-bearing for the j131/IONE-1773 journey test.
@@ -31,10 +31,10 @@ layout and pointers only.
 
 ## Layout
 
-- `src/main/java/demo/Money.java` — cent-arithmetic helpers (`sum`, `floorAtZero`), plain Java, no dependencies.
+- `src/main/java/demo/Money.java` — cent-arithmetic helpers (`sum`, `floorAtZero`, `roundToCents`), plain Java, no dependencies.
 - `src/test/java/demo/MoneyTest.java` — JUnit 4 tests for `Money`.
-- `web/src/pricing.js` — pure pricing helpers (`cartTotal`, `applyDiscount`), zero imports.
-- `web/src/CartSummary.jsx` — the only React component; renders `pricing.js` output, not itself under test.
+- `web/src/pricing.js` — pure pricing helpers (`cartTotal`, `applyDiscount`, `roundToCents`), zero imports.
+- `web/src/CartSummary.jsx` — the only React component; renders `pricing.js` output (`roundToCents` for the subtotal, `applyDiscount` for the payable amount), not itself under test.
 - `web/test/pricing.test.js` — `node:test` suite for `pricing.js`.
 
 There is no server and no wiring between the Java and JS sides at runtime —
