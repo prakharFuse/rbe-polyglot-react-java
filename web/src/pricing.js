@@ -21,3 +21,23 @@ export function cartTotal(lines) {
 export function applyDiscount(lines, discountCents) {
   return Math.max(0, cartTotal(lines) - discountCents);
 }
+
+/**
+ * Round to two decimal places, half-up, matching Money.roundToCents() in the
+ * Java service exactly.
+ *
+ * Floating-point multiplication (`amount * 100`) can land a hair below the
+ * intended integer (e.g. 1.005 * 100 === 100.49999999999999), which would
+ * flip Math.round from HALF_UP to HALF_DOWN on exact halves. Requantising
+ * through toPrecision(12) first strips that noise before rounding, and the
+ * sign is split out and reapplied so negative halves round away from zero
+ * (HALF_UP on the absolute value) rather than toward positive infinity.
+ */
+export function roundToCents(amount) {
+  if (typeof amount !== 'number' || !Number.isFinite(amount)) {
+    throw new TypeError('roundToCents requires a finite number');
+  }
+  const sign = amount < 0 ? -1 : 1;
+  const scaled = Number((Math.abs(amount) * 100).toPrecision(12));
+  return (sign * Math.round(scaled)) / 100;
+}
