@@ -2,6 +2,7 @@ package demo;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import org.junit.Test;
 
 /**
@@ -24,5 +25,20 @@ public class MoneyTest {
     public void clampsNegativeTotals() {
         assertEquals(0, Money.floorAtZero(-50));
         assertEquals(25, Money.floorAtZero(25));
+    }
+
+    @Test
+    public void roundsHalfUp() {
+        assertEquals(new BigDecimal("1.01"), Money.of(new BigDecimal("1.005")).roundToCents().amount());
+    }
+
+    @Test
+    public void roundsDownBelowHalf() {
+        assertEquals(new BigDecimal("2.34"), Money.of(new BigDecimal("2.344")).roundToCents().amount());
+    }
+
+    @Test
+    public void roundsNegativeHalfAwayFromZero() {
+        assertEquals(new BigDecimal("-1.01"), Money.of(new BigDecimal("-1.005")).roundToCents().amount());
     }
 }
