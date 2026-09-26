@@ -27,4 +27,14 @@ journey testing anything:
    configured check RUNS; a red main cannot tell a working gate from a broken
    build.
 
+## Rounding
+
+Both pricing paths apply the same half-up-to-two-decimals rule when rounding
+money amounts, so a cart total agrees between the Java service and the web
+client on every input. On the Java side this is `Money.roundToCents()`
+(`src/main/java/demo/Money.java`), which uses `BigDecimal#setScale(2,
+RoundingMode.HALF_UP)`. On the JavaScript side this is the exported
+`roundToCents` function in `web/src/pricing.js`, used by `CartSummary.jsx`
+when displaying the cart total.
+
 Re-provision: `tests/journeys/scripts/provision-polyglot-fixtures.ts`.
