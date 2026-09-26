@@ -3,20 +3,24 @@ name: testing
 description: How to run and write tests in this repo — two separate toolchains, both required
 type: convention
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+updated: 2026-09-26 (IONE-959)
+captured_sha: 9f8c0c907a349231488e4d98cf28126c14cfff37
 sources:
-  - package.json
-  - build.gradle.kts
   - src/test/java/demo/MoneyTest.java
   - web/test/pricing.test.js
+  - src/main/java/demo/Money.java
+  - web/src/pricing.js
+  - package.json
+  - build.gradle.kts
   - README.md
 sources_sha256:
-  README.md: 5529d73392307476641ea38674f8161667129a2d1ad23f1a154b2d164407c55d
+  README.md: e33f2cfcaa1cef1d554d20bd984192274c04f7b04c48554df62e15f54a1a0288
   build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
   package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
-  src/test/java/demo/MoneyTest.java: d6a534d376ebb41b8374ceb2450f514573e0543fc0762e0d4a2ac19956a3fbbe
-  web/test/pricing.test.js: 3b34b69345ba8e5c20cc8cff04338b6ce208c4b910eb7bb2cf9fa120a2124cba
+  src/main/java/demo/Money.java: 490002cbe263439039012b2680de1c7d46a8a01917bf0e3c09683d3fbd45ac6c
+  src/test/java/demo/MoneyTest.java: 0851cc404a4d0679bd50a67904666a0e9e30575647c549c25b81cb0704e740fb
+  web/src/pricing.js: f63966141dbd58781c7c2e40ad1f883ebc9ddd132dac980773e43b937416fae8
+  web/test/pricing.test.js: a153c5e01b24c4b519083f59c8d63490a8d353b4998d1c9a43e6dbb2e19f6063
 ---
 
 Two independent suites exist and a change is only validated when **both**
@@ -47,3 +51,12 @@ insufficient here.
   directly (e.g. `../src/pricing.js`).
 - `web/src/pricing.js` itself imports nothing, by design — keep new pricing
   helpers dependency-free if they belong in that file.
+
+## Cross-language parity fixtures
+
+`Money.roundToCents()` (Java) and `roundToCents()` (`web/src/pricing.js`) are
+both expected to implement the same HALF_UP round-to-two-decimals rule.
+`MoneyTest.java` and `pricing.test.js` each assert the identical set of edge
+cases (`1.005 -> 1.01`, `2.344 -> 2.34`, `-1.005 -> -1.01`); if you change the
+rounding rule on one side, update both test files with matching cases or the
+suites will silently drift apart.

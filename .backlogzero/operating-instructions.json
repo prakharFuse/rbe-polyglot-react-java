@@ -1,30 +1,30 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "76152d939405b54f5e6748385f14d0e92833a2d20727e7afdcd1c0b4b6cb7d19",
+  "sourceHash": "7841a7d24b69e1603a9e01b5bf9a178cf08725924e5dcd67c294aaa8d3cdb11a",
   "promptVersion": 2,
   "sources": [
     {
       "path": "knowledge/architecture.md",
-      "chars": 1061,
-      "sha256": "81e25878857502bbcaacdb9b4ebcd2f001ab12121b1758a43e4a1d433a70757b"
+      "chars": 1707,
+      "sha256": "be0f7b877ea646a6e3054b31004ea515fafa7342a3f9ae259948f21782e199ca"
     },
     {
       "path": "knowledge/overview.md",
-      "chars": 1619,
-      "sha256": "bb5c75ec60bb35a27a8f72b2b593989a77e8449d08427d8f737b9eaba8e91ffb"
+      "chars": 1657,
+      "sha256": "d3fa5dc2944c279ef15f325f63d0cc785d06f748a582f1fedda4946f6d350240"
     },
     {
       "path": "conventions/testing.md",
-      "chars": 1299,
-      "sha256": "8b5d789e18f0ee5fcab28c6cf73263fbda0800576a1ecfaf37bc8b808b00ce51"
+      "chars": 1752,
+      "sha256": "1ee71fa5d22139c588da3d98428f6636af0f71326150375720a4f40321cc17ca"
     }
   ],
   "provenance": [
     {
-      "heading": "# Repository Overview",
+      "heading": "# Architecture",
       "sources": [
-        "knowledge/overview.md",
-        "knowledge/architecture.md"
+        "knowledge/architecture.md",
+        "knowledge/overview.md"
       ]
     },
     {
@@ -35,59 +35,63 @@
       ]
     },
     {
-      "heading": "# Gotchas",
+      "heading": "# Cross-language rounding parity",
       "sources": [
-        "knowledge/overview.md"
+        "conventions/testing.md",
+        "knowledge/architecture.md"
       ]
     }
   ],
   "drops": [
     {
       "source": "knowledge/architecture.md",
-      "rule": "mermaid flowchart of Java/JS subgraphs",
+      "rule": "mermaid flowchart of Java/JS module internals (Money.java, MoneyTest, pricing.js, CartSummary.jsx relationships)",
       "reason": "derivable-from-code"
     },
     {
       "source": "knowledge/architecture.md",
-      "rule": "CartSummary.jsx renders pricing.js output but is not itself exercised by any test",
+      "rule": "'verified by search — no matches for fetch/http/server bootstrap outside package-lock.json'",
+      "reason": "derivable-from-code"
+    },
+    {
+      "source": "knowledge/architecture.md",
+      "rule": "'CartSummary.jsx renders pricing.js's output but is not itself exercised by any test'",
       "reason": "derivable-from-code"
     },
     {
       "source": "knowledge/overview.md",
-      "rule": "Layout bullet list (file paths for Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js)",
+      "rule": "Full file-by-file layout listing (Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js paths and descriptions)",
       "reason": "derivable-from-code"
     },
     {
       "source": "knowledge/overview.md",
-      "rule": "See README.md for full rationale (j131/IONE-1773 journey-test fixture)",
+      "rule": "'See ../../README.md for the full rationale ... that doc is accurate and should be treated as the source of truth for why the repo is shaped this way'",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "Known issue section: applyDiscount previously had a documented defect, now fixed as of PST-1; README.md still describes the defect as intentional and no longer matches code",
+      "reason": "not-always-applicable"
+    },
+    {
+      "source": "knowledge/overview.md",
+      "rule": "'Running the suites: Commands and conventions ... are in [[testing]]' (cross-reference pointer)",
+      "reason": "redundant-with"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "'see ../../README.md for why a single-command gate is insufficient here'",
       "reason": "not-always-applicable"
     },
     {
       "source": "conventions/testing.md",
-      "rule": "Test files live under web/test/, importing the module under test directly (e.g. ../src/pricing.js)",
-      "reason": "derivable-from-code"
-    },
-    {
-      "source": "conventions/testing.md",
-      "rule": "Spotless plugin resolved via mavenCentral() in repositories {}",
+      "rule": "'resolved via mavenCentral() in repositories {}' detail about spotless plugin resolution",
       "reason": "derivable-from-code"
     }
   ],
-  "conflicts": [
-    {
-      "sources": [
-        "knowledge/overview.md"
-      ],
-      "sides": [
-        "README.md: the discount defect (subtracted per line instead of once from order total) is a load-bearing, intentional property of the fixture",
-        "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed"
-      ],
-      "chose": "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed",
-      "basis": "code-verified fact overrides a stale claim in README per the source's own explicit divergence note"
-    }
-  ],
-  "chars": 1902,
-  "lines": 19,
+  "conflicts": [],
+  "chars": 2217,
+  "lines": 20,
   "overTarget": false,
-  "generatedAt": "2026-09-22T17:34:33.352Z"
+  "generatedAt": "2026-09-26T04:21:13.598Z"
 }

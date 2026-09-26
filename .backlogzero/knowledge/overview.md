@@ -3,16 +3,14 @@ name: overview
 description: What this repo is and how it's laid out — read first for orientation
 type: knowledge
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: ed0acdd83de0c442fb098179ac1edf12951eb8a7
+updated: 2026-09-26 (IONE-959)
+captured_sha: 9f8c0c907a349231488e4d98cf28126c14cfff37
 sources:
+  - src/main/java/demo/Money.java
   - web/src/pricing.js
-  - web/test/pricing.test.js
-  - README.md
 sources_sha256:
-  README.md: 5529d73392307476641ea38674f8161667129a2d1ad23f1a154b2d164407c55d
-  web/src/pricing.js: 3395c08125763827c0fe8bc0c6babe4d61ae9b5e633ca7740a4bb95952ffab52
-  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
+  src/main/java/demo/Money.java: 490002cbe263439039012b2680de1c7d46a8a01917bf0e3c09683d3fbd45ac6c
+  web/src/pricing.js: f63966141dbd58781c7c2e40ad1f883ebc9ddd132dac980773e43b937416fae8
 diverges_from:
   - source: README.md#L21-L25
     claim: README.md states the fixture's intentional defect is on the JavaScript side, in web/src/pricing.js's applyDiscount (per-item instead of per-order discount), and that this is load-bearing for the j131/IONE-1773 journey test.
@@ -31,10 +29,13 @@ layout and pointers only.
 
 ## Layout
 
-- `src/main/java/demo/Money.java` — cent-arithmetic helpers (`sum`, `floorAtZero`), plain Java, no dependencies.
+- `src/main/java/demo/Money.java` — cent-arithmetic helpers (`sum`,
+  `floorAtZero`, `roundToCents`), plain Java, no dependencies.
 - `src/test/java/demo/MoneyTest.java` — JUnit 4 tests for `Money`.
-- `web/src/pricing.js` — pure pricing helpers (`cartTotal`, `applyDiscount`), zero imports.
-- `web/src/CartSummary.jsx` — the only React component; renders `pricing.js` output, not itself under test.
+- `web/src/pricing.js` — pure pricing helpers (`cartTotal`, `applyDiscount`,
+  `roundToCents`), zero imports.
+- `web/src/CartSummary.jsx` — the only React component; renders `pricing.js`
+  output, not itself under test.
 - `web/test/pricing.test.js` — `node:test` suite for `pricing.js`.
 
 There is no server and no wiring between the Java and JS sides at runtime —
