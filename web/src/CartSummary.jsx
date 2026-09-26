@@ -7,7 +7,7 @@ import { applyDiscount, cartTotal, roundToCents } from './pricing.js';
  * rather than to be exercised by the suite.
  */
 export function CartSummary({ lines, discountCents }) {
-  const total = roundToCents(cartTotal(lines));
+  const total = roundToCents(cartTotal(lines) / 100);
   const payable = applyDiscount(lines, discountCents);
   return (
     <section className="cart-summary">
