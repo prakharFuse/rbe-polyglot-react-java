@@ -5,13 +5,17 @@ public final class Money {
     private Money() {
     }
 
-    /** Sum of every amount, in cents. */
+    /**
+     * Sum of every amount, in cents.
+     *
+     * @throws ArithmeticException if the total does not fit in an int
+     */
     public static int sum(int[] amounts) {
-        int total = 0;
+        long total = 0;
         for (int amount : amounts) {
             total += amount;
         }
-        return total;
+        return Math.toIntExact(total);
     }
 
     /** Never let a computed total fall below zero. */
