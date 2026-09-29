@@ -1,6 +1,7 @@
 package demo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -24,5 +25,31 @@ public class MoneyTest {
     public void clampsNegativeTotals() {
         assertEquals(0, Money.floorAtZero(-50));
         assertEquals(25, Money.floorAtZero(25));
+    }
+
+    @Test
+    public void sumAtIntMaxBoundaryIsExact() {
+        assertEquals(Integer.MAX_VALUE, Money.sum(new int[] {Integer.MAX_VALUE - 1, 1}));
+    }
+
+    @Test
+    public void sumOnePastIntMaxThrows() {
+        assertThrows(ArithmeticException.class, () -> Money.sum(new int[] {Integer.MAX_VALUE, 1}));
+    }
+
+    @Test
+    public void sumOfLargeCartThrowsInsteadOfWrapping() {
+        assertThrows(
+                ArithmeticException.class, () -> Money.sum(new int[] {1_500_000_000, 1_500_000_000}));
+    }
+
+    @Test
+    public void sumBelowIntMinThrows() {
+        assertThrows(ArithmeticException.class, () -> Money.sum(new int[] {Integer.MIN_VALUE, -1}));
+    }
+
+    @Test
+    public void intermediateOverflowThatComesBackInRangeIsExact() {
+        assertEquals(Integer.MAX_VALUE, Money.sum(new int[] {Integer.MAX_VALUE, 1, -1}));
     }
 }
