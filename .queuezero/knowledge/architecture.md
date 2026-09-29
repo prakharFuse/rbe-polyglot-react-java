@@ -3,8 +3,8 @@ name: architecture
 description: Real module shape of the repo — two independent modules, no runtime link between them
 type: knowledge
 scope: global
-updated: 2026-09-22 (IONE-959)
-captured_sha: 31ae07b64f13a194041d0958b9548d6d2ff76894
+updated: 2026-09-29 (IONE-959)
+captured_sha: e26c70a2b48b36976a77ff799accebc4d1ab0e80
 sources:
   - src/main/java/demo/Money.java
   - src/test/java/demo/MoneyTest.java
@@ -16,11 +16,11 @@ sources:
 sources_sha256:
   build.gradle.kts: 0f2a531ab2e8f15bdeddb35da942ae49abc40d581314cdce4a7c7a331d114268
   package.json: dfe52e7d066dcf11affc72f3b3e1e875795635aa53a70e755f420180d11c7f57
-  src/main/java/demo/Money.java: 577563fbf0454e49225c00d9161cd34e39557173c3093286c7c6980bf815ec48
-  src/test/java/demo/MoneyTest.java: d6a534d376ebb41b8374ceb2450f514573e0543fc0762e0d4a2ac19956a3fbbe
+  src/main/java/demo/Money.java: 175e6585541ba1ce4d07e3f81b18590b373a7f12186e6a843ca0660a6f9b3bce
+  src/test/java/demo/MoneyTest.java: 43cff5836dc13a3b2affde80a7022eddfbab969eab76517933457c4e2670901b
   web/src/CartSummary.jsx: be7506d7244ab667d201b6aa63a8b829bade1620ea09c182ea42f7ed0434ae03
-  web/src/pricing.js: eb0dfe8b94a0ba36bc49d2bebcb8de7ada2416b0a2fc9bacb804f5e249f1b139
-  web/test/pricing.test.js: 3b34b69345ba8e5c20cc8cff04338b6ce208c4b910eb7bb2cf9fa120a2124cba
+  web/src/pricing.js: 3395c08125763827c0fe8bc0c6babe4d61ae9b5e633ca7740a4bb95952ffab52
+  web/test/pricing.test.js: b93e64116f19e43135beb6ff40ba71f5e7e87855756866d27855cf1ff1352032
 ---
 
 ```mermaid

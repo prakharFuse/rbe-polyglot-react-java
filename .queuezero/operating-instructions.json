@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceHash": "76152d939405b54f5e6748385f14d0e92833a2d20727e7afdcd1c0b4b6cb7d19",
+  "sourceHash": "db41c4ce44f97002388ba05d392898fd96a215160a01c06311733c7a87a42cc5",
   "promptVersion": 2,
   "sources": [
     {
@@ -15,18 +15,11 @@
     },
     {
       "path": "conventions/testing.md",
-      "chars": 1299,
-      "sha256": "8b5d789e18f0ee5fcab28c6cf73263fbda0800576a1ecfaf37bc8b808b00ce51"
+      "chars": 1481,
+      "sha256": "24d751f38331e8cf13beee4f3c15f058ac71325a186fe7d32cb63b99f2a8b8e1"
     }
   ],
   "provenance": [
-    {
-      "heading": "# Repository Overview",
-      "sources": [
-        "knowledge/overview.md",
-        "knowledge/architecture.md"
-      ]
-    },
     {
       "heading": "# Testing",
       "sources": [
@@ -35,59 +28,59 @@
       ]
     },
     {
-      "heading": "# Gotchas",
+      "heading": "# Architecture and gotchas",
       "sources": [
-        "knowledge/overview.md"
+        "knowledge/architecture.md",
+        "knowledge/overview.md",
+        "conventions/testing.md"
       ]
     }
   ],
   "drops": [
     {
       "source": "knowledge/architecture.md",
-      "rule": "mermaid flowchart of Java/JS subgraphs",
-      "reason": "derivable-from-code"
+      "rule": "Mermaid flowchart of Java and JS modules",
+      "reason": "derivable-from-code",
+      "detail": "Summarized as the 'no runtime link' bullet"
     },
     {
-      "source": "knowledge/architecture.md",
-      "rule": "CartSummary.jsx renders pricing.js output but is not itself exercised by any test",
+      "source": "knowledge/overview.md",
+      "rule": "Layout: file-by-file list (Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js)",
       "reason": "derivable-from-code"
     },
     {
       "source": "knowledge/overview.md",
-      "rule": "Layout bullet list (file paths for Money.java, MoneyTest.java, pricing.js, CartSummary.jsx, pricing.test.js)",
-      "reason": "derivable-from-code"
+      "rule": "README.md is the source of truth for why the repo is shaped this way (journey-test fixture j131/IONE-1773)",
+      "reason": "not-always-applicable",
+      "detail": "Background only. The README's outdated defect claim is covered by a gotcha bullet"
     },
     {
       "source": "knowledge/overview.md",
-      "rule": "See README.md for full rationale (j131/IONE-1773 journey-test fixture)",
-      "reason": "not-always-applicable"
+      "rule": "Running the suites: see [[testing]]",
+      "reason": "redundant-with",
+      "detail": "Testing section"
     },
     {
       "source": "conventions/testing.md",
-      "rule": "Test files live under web/test/, importing the module under test directly (e.g. ../src/pricing.js)",
-      "reason": "derivable-from-code"
+      "rule": "Framework imports org.junit.Test, org.junit.Assert.assertEquals, assertThrows; testImplementation(\"junit:junit:4.13.2\") in build.gradle.kts",
+      "reason": "derivable-from-code",
+      "detail": "Kept as 'JUnit 4.13.2, do not downgrade'"
     },
     {
       "source": "conventions/testing.md",
-      "rule": "Spotless plugin resolved via mavenCentral() in repositories {}",
+      "rule": "Toolchain: JDK 17 (java.toolchain.languageVersion)",
+      "reason": "redundant-with",
+      "detail": "Merged into the JUnit/JDK 17 bullet"
+    },
+    {
+      "source": "conventions/testing.md",
+      "rule": "build.gradle.kts applies com.diffplug.spotless (removeUnusedImports) resolved via mavenCentral()",
       "reason": "derivable-from-code"
     }
   ],
-  "conflicts": [
-    {
-      "sources": [
-        "knowledge/overview.md"
-      ],
-      "sides": [
-        "README.md: the discount defect (subtracted per line instead of once from order total) is a load-bearing, intentional property of the fixture",
-        "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed"
-      ],
-      "chose": "Code (as of PST-1): applyDiscount computes cartTotal(lines) - discountCents once and floors at zero — defect is fixed",
-      "basis": "code-verified fact overrides a stale claim in README per the source's own explicit divergence note"
-    }
-  ],
-  "chars": 1902,
-  "lines": 19,
+  "conflicts": [],
+  "chars": 1625,
+  "lines": 18,
   "overTarget": false,
-  "generatedAt": "2026-09-22T17:34:33.352Z"
+  "generatedAt": "2026-09-29T01:11:40.530Z"
 }

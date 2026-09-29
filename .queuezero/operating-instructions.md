@@ -1,18 +1,17 @@
-# Repository Overview
-
-- This repo is a deliberately polyglot fixture: an independent Gradle/Java module and an independent React/JS module living side by side, each with its own test suite.
-- There is no runtime link between the two modules — no server, no shared bootstrap, no `fetch`/`http` calls anywhere in the repo outside `package-lock.json`.
-- `Money.java` (Java side) and `pricing.js` (JS side) are two standalone implementations of similar cent-arithmetic concepts. A change to one has no effect on the other — treat them as separate deliverables even if a task description talks about "the pricing logic" generically.
-- README.md is the source of truth for why the repo is shaped this way, but see Gotchas below for one specific claim it gets wrong.
-
 # Testing
 
-- Two independent test suites exist; a change is only validated once **both** have been run.
-- Java suite: run `gradle test`. Uses JUnit 4 (`org.junit.Test`, `org.junit.Assert.assertEquals`) on a JDK 17 toolchain. Test files live under `src/test/java/demo/`, mirroring `src/main/java/demo/`.
-- JS suite: run `node --test web/test/*.test.js` (also wired as `npm test`). Uses only Node's built-in `node:test` and `node:assert/strict` — do not add Jest, Mocha, Vitest, or any other test framework dependency; the suite's zero-dependency property is intentional and load-bearing.
-- `web/src/pricing.js` itself has zero imports by design — keep any new pricing helpers added to that file dependency-free.
-- `build.gradle.kts` applies the Spotless plugin with `removeUnusedImports()` for Java.
+- A change counts as validated only when both suites have been run. One command does not cover both:
+  - Java: `gradle test`
+  - JS: `node --test web/test/*.test.js` (also available as `npm test`)
+- The Java suite must stay green on main.
+- Java tests use JUnit 4.13.2 on a JDK 17 toolchain. Do not downgrade JUnit, because `MoneyTest` uses `assertThrows`, which needs JUnit >= 4.13.
+- Put Java tests under `src/test/java/demo/`, mirroring `src/main/java/demo/`.
+- JS tests use only Node's built-in `node:test` and `node:assert/strict`. Do not add a test framework (Jest, Mocha, Vitest, etc.). The JS suite must stay zero-dependency so it cannot fail for install or environment reasons.
+- Put JS tests under `web/test/` and import the module under test directly (e.g. `../src/pricing.js`).
 
-# Gotchas
+# Architecture and gotchas
 
-- README.md claims the JS-side discount defect (subtracting the discount per line instead of once per order) is still present and intentional. As of the PST-1 fix, `applyDiscount` in `web/src/pricing.js` already computes `cartTotal(lines) - discountCents` once and floors at zero. Trust the code over that specific README claim.
+- The Java module (`Money.java`) and the JS module (`web/src/pricing.js`) are two separate implementations of similar cent arithmetic. They have no runtime link: no server, no `fetch`, no shared entrypoint. A change on one side has no effect on the other, so fix a bug on the side where it occurs.
+- `web/src/pricing.js` imports nothing, by design. Keep new pricing helpers in that file free of dependencies.
+- `web/src/CartSummary.jsx` is not covered by any test. Put logic you want tested in the pure functions in `pricing.js`.
+- README.md says `applyDiscount` has an intentional defect (discount taken off each line, no floor at zero). That is out of date. The code now subtracts the discount once from `cartTotal(lines)` and floors the result at zero. Trust the code over that README claim.

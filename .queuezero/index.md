@@ -1,4 +1,4 @@
-# .backlogzero index
+# .queuezero index
 
 ## knowledge
 
