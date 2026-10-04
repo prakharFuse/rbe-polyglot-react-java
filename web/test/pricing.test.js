@@ -28,6 +28,15 @@ test('applyDiscount takes the discount off the order total once for a multi-line
   assert.equal(applyDiscount(threeLineCart, 100), 1400);
 });
 
+test('applyDiscount subtracts once from a multi-line total even when the discount exceeds each line', () => {
+  // Per-line subtract-and-floor would zero both lines and return 0.
+  const twoLineCart = [
+    { priceCents: 50, quantity: 1 },
+    { priceCents: 50, quantity: 1 },
+  ];
+  assert.equal(applyDiscount(twoLineCart, 80), 20);
+});
+
 test('applyDiscount floors the result at zero when the discount exceeds the subtotal', () => {
   assert.equal(applyDiscount([{ priceCents: 500, quantity: 1 }], 900), 0);
 });
