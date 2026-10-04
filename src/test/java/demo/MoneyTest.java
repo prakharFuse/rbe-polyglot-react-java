@@ -6,8 +6,8 @@ import org.junit.Test;
 
 /**
  * The JAVA suite. Green on main and expected to stay green: j131 asserts that
- * BOTH suites ran, and the defect it asks an agent to fix lives on the
- * JavaScript side on purpose.
+ * BOTH suites ran; the order-level discount logic lives on the JavaScript
+ * side (web/src/pricing.js).
  */
 public class MoneyTest {
     @Test
