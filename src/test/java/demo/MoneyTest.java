@@ -32,6 +32,16 @@ public class MoneyTest {
     }
 
     @Test
+    public void sumBelowIntMinThrows() {
+        assertThrows(ArithmeticException.class, () -> Money.sum(new int[] {Integer.MIN_VALUE, -1}));
+    }
+
+    @Test
+    public void sumWithTransientOverflowThatEndsInRange() {
+        assertEquals(Integer.MAX_VALUE, Money.sum(new int[] {Integer.MAX_VALUE, 1, -1}));
+    }
+
+    @Test
     public void clampsNegativeTotals() {
         assertEquals(0, Money.floorAtZero(-50));
         assertEquals(25, Money.floorAtZero(25));
