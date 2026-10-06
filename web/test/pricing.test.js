@@ -40,3 +40,12 @@ test('applyDiscount floors a multi-line cart at zero when the discount exceeds t
   ];
   assert.equal(applyDiscount(threeLineCart, 2000), 0);
 });
+
+test('applyDiscount leaves a multi-line cart total unchanged when the discount is zero', () => {
+  const threeLineCart = [
+    { priceCents: 500, quantity: 1 },
+    { priceCents: 300, quantity: 2 },
+    { priceCents: 100, quantity: 4 },
+  ];
+  assert.equal(applyDiscount(threeLineCart, 0), 1500);
+});
