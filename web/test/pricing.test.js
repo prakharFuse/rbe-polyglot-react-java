@@ -31,3 +31,12 @@ test('applyDiscount takes the discount off the order total once for a multi-line
 test('applyDiscount floors the result at zero when the discount exceeds the subtotal', () => {
   assert.equal(applyDiscount([{ priceCents: 500, quantity: 1 }], 900), 0);
 });
+
+test('applyDiscount floors a multi-line cart at zero when the discount exceeds the order total', () => {
+  const threeLineCart = [
+    { priceCents: 500, quantity: 1 },
+    { priceCents: 300, quantity: 2 },
+    { priceCents: 100, quantity: 4 },
+  ];
+  assert.equal(applyDiscount(threeLineCart, 2000), 0);
+});
