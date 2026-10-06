@@ -1,6 +1,7 @@
 package demo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
@@ -18,6 +19,26 @@ public class MoneyTest {
     @Test
     public void emptyIsZero() {
         assertEquals(0, Money.sum(new int[] {}));
+    }
+
+    @Test
+    public void sumAtIntMaxBoundaryIsExact() {
+        assertEquals(Integer.MAX_VALUE, Money.sum(new int[] {Integer.MAX_VALUE - 1, 1}));
+    }
+
+    @Test
+    public void sumPastIntMaxThrows() {
+        assertThrows(ArithmeticException.class, () -> Money.sum(new int[] {Integer.MAX_VALUE, 1}));
+    }
+
+    @Test
+    public void sumBelowIntMinThrows() {
+        assertThrows(ArithmeticException.class, () -> Money.sum(new int[] {Integer.MIN_VALUE, -1}));
+    }
+
+    @Test
+    public void sumWithTransientOverflowThatEndsInRange() {
+        assertEquals(Integer.MAX_VALUE, Money.sum(new int[] {Integer.MAX_VALUE, 1, -1}));
     }
 
     @Test
